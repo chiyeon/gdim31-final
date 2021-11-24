@@ -1,0 +1,8 @@
+=== REQUIREMENTS ===
+ - menu to start, restart, quit game
+ - one of following
+    - win/lose state & restart
+    - be a narrative
+    - ongoing experience that saves progress
+ - save some kind of data (high scores, inventory, content, progress)
+ - have sound
