@@ -5,18 +5,71 @@ but constantly seeing another fisherman haunting them
 uses fishing mechanic, must fish up different parts of something?
 saves progress
 
-= story =
-1 OPENING SCENE
-at a serene pond, daytime not really creepy
-fishing, slips out of grasp, bites but doesnt latch on
+= fishing mechanic =
+shouldn't mess up camera overly or anything but should direct it
+i don't think i want rod up all the time, should only come out when player wants to fish
+distinct player states ? fishing & not fishing
+    move the boat while not, stationary and rod up when fishing
+    when fishing mode can freely walk around teh boat and look at different things
 
+maybe:
+ - hold left click to put rod back, let go to cast
+ - holding charges meter, holding too long makes it slowly go back down
+ - cast goes in dir of mouse cursor, lands
+ - stays in this state until something bites
+ - when bites, bobber dips below surface, player must hold click to reel
+ - just holding makes it go too fast, must reel in then pause, reel pause, etc
+ - maybe meter goes up slowly that shows integrity
+ - if it reaches top bar it cuts off
+
+= story =
 cut to text SCENE
 "I can never hook it during the day"
 
-2 OPENING SCENE
+1 OPENING SCENE
+at a serene pond, daytime not really creepy
+teaches fishing state & how to fish
+fishing, slips out of grasp, bites but doesnt latch on
+
+cut to text SCENE
+"Later, later."
+
 same pond same area, but this time darker (sunset ish time), creepier elements
 fishing, bites on, latches for a moment, but gets away
 
 cut to text SCENE
-"Close, closer."
+"Tonights the night. I can feel it."
 
+2 Moving Scene
+player drives boat in large expanse, can see where they need to go with compass maybe
+yea compass on dash that shows where to go
+player keeps moving and passes by a boat with normal fishing
+next time the guy is staring at them
+next time boat is there guy is missing
+player hears something behind them maybe, boat stops moving
+turn around guy is right there looking all weird crazy bloody maybe holding onto engine
+jumps at camera maybe, goes black
+
+3 GAMEPLAY
+setting:
+big map
+night time, dusk, red/orange sky, not much light
+flashlight on boat
+chest ahead, player fishes it up to find:
+ - fisherman hat
+ - map with circle zones outlined
+ - notebook with note #1
+    - i have to get out over and over again
+
+big map to traverse
+gameplay consists of avoiding fisherman angry entity
+fishing up things to meet a goal idk
+at the end, big fish hooks on and pulls out to safety
+player can find crates and hook onto and pull them to find secrets
+
+story goes there was a fisherman here who plotted the locations but died
+player goes around collecting the notes to find story
+avoiding dead fisherman other guy
+they build parts to a new fishing rod
+cast it into water and teh big one comes and pulls them out to safety
+like moves super fast person knocks out wakes up
