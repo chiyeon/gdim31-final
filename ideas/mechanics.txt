@@ -1,0 +1,36 @@
+=== fishing / navigating mechanic ===
+player is always in one of two states: NAVIGATING or FISHING
+
+when NAVIGATING:
+the player is at the helm of the ship (the rear) and can control the speed they move forward (W/S to increase or decrease, it stays the same)
+and the turning direction (A/D).
+
+They also have access to a compass
+
+(undecided)
+if they get out of this mode, the boat will continue in the specified speed and direction
+
+when FISHING
+the player can move freely around the boat with WASD
+
+as they hold left click, they begin winding up a fishing rod swing with power/range that increases the longer they hold to a cap
+
+once they cast, they cannot turn away or else the line will break. They can right click to cut the line or left click to pull it
+
+if something catches, the bobber will dip below the water. if something is on the hook, a shadow will be below water.
+if pulling too fast / frequently, whatever has bitten will fall off, so care and control must be afforded
+
+if a player sees special objects (crates) they can hook and pull them with no penalty.
+
+=== gameplay loop ===
+find note & new location on map
+
+navigate to location
+
+fish until found specific piece
+
+avoid fisherman entity
+
+if caught die respawn
+
+=== enemy ai ===

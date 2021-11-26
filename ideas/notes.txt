@@ -1,0 +1,40 @@
+=== note 1 ===
+found in crate right as player starts the game, alongside a map
+
+goal:   introduce the idea of finding parts to build a way outlined 
+        they were also trapped there, unknown if they escaped
+        hint at first location
+part:   handle
+
+=== note 2 ===
+found after catching first part
+
+goal:   talk about entity chasing them, unknown what it is but warn against getting caught
+        hint at next location
+part:   reel
+
+=== note 3 ===
+found after catching second part
+
+goal:   talk about large entity swimming below, possibly not hostile intentions
+        hint at next location
+part:   rod
+
+=== note 4 ===
+found after catching third part
+
+goal:   found location of entity swimming below, the only hope at getting out
+        hint at location of entity, but say it never ever arrived, wouldnt bite
+part:   nothing, but knows location of entity
+note:   at this point, the player should clearly see the areas where they should fish on the map
+        and there should be a space it looks naturally like there should be fishing done there even
+        if there isnt a marker, making them curious and want to go there
+
+=== note 5 ===
+hidden find somewhere near the final component area
+
+goal:   talk about needing something specific to lure the big entity, but might be too late
+part:   lure
+
+from then, the player puts the lure on the rebuilt fishing rod and fishes back at the location they discovered earlier, 
+and the fish pulls them out to safety.
