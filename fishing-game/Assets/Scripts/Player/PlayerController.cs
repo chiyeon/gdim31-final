@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     // singleton
@@ -12,15 +11,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float mouseSensitivity = 30.0f;
     private float xRotation = 0f;
+    private float yRotation = 0f;
     [SerializeField]
     private float speed = 10.0f;
     [SerializeField]
     private float jumpForce = 10.0f;
-    [SerializeField]
-    private float gravity = -10f;
-    private bool movementDisabled = false;
+    //[SerializeField]
+    //private float gravity = -10f;
+    private bool isNavigating = false;
     private bool isGrounded = false;
     private Vector3 velocity;
+    private bool jump = false;
 
     [Header("Ground Check")]
     [SerializeField]
@@ -33,8 +34,11 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private Transform mainCamera;
-    private CharacterController controller;
+    //private CharacterController controller;
+    private Rigidbody rb;
 
+    private Vector3 dir;
+    private Collider col;
     void Awake() {
         instance = this;
     }
@@ -42,7 +46,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        //controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
 
         Global.instance.SetFPSMouse(true);
     }
@@ -55,33 +61,53 @@ public class PlayerController : MonoBehaviour
 
         xRotation -= mouseLook.y;
         xRotation = Mathf.Clamp(xRotation, -80, 80);
+        yRotation += mouseLook.x;
 
-        transform.Rotate(Vector3.up * mouseLook.x);
-        mainCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        //transform.Rotate(Vector3.up * mouseLook.x);
+        mainCamera.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     
         // check if touching ground
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundLayer);
+        if(Input.GetButtonDown("Jump") && isGrounded) {
+            //velocity.y = jumpForce;
+            jump = true;
+        }
+        /*
         if(isGrounded && velocity.y < 0) {
             velocity.y = -2f;
-        }
+        }*/
 
-        if(movementDisabled)
+        if(isNavigating) {
+            transform.position = transform.parent.position;
             return;
-        // move player & jump
-        Vector3 dir = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
-
-        controller.Move(dir * speed * Time.deltaTime);
-
-        if(Input.GetButtonDown("Jump")) {
-            velocity.y = jumpForce;
         }
+        // move player & jump
+        dir = mainCamera.right * Input.GetAxis("Horizontal") * speed + mainCamera.forward * Input.GetAxis("Vertical") * speed;
 
-        velocity.y += gravity * Time.deltaTime;
+        //controller.Move(dir * speed * Time.deltaTime);
 
-        controller.Move(velocity * Time.deltaTime);
+        //velocity.y += gravity * Time.deltaTime;
+
+        //controller.Move(velocity * Time.deltaTime);
+    }
+    
+    void FixedUpdate() {
+        dir.y = rb.velocity.y;
+        rb.velocity = dir;
+
+        if(jump) {
+            jump = false;
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
     }
 
-    public void SetMovementDisabled(bool _movementDisabled) {
-        movementDisabled = _movementDisabled;
+    public void SetNavigating(bool _isNavigating, Transform parent) {
+        isNavigating = _isNavigating;
+        
+        if(isNavigating) {
+            transform.SetParent(parent);
+        } else {
+            transform.SetParent(null);
+        }
     }
 }
