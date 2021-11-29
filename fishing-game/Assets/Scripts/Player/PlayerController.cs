@@ -103,11 +103,16 @@ public class PlayerController : MonoBehaviour
 
     public void SetNavigating(bool _isNavigating, Transform parent) {
         isNavigating = _isNavigating;
-        
+
         if(isNavigating) {
             transform.SetParent(parent);
+            FishingController.instance.OnNavigating();
         } else {
             transform.SetParent(null);
         }
+    }
+
+    public bool GetNavigating() {
+        return isNavigating;
     }
 }
