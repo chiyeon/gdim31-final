@@ -11,8 +11,8 @@ TagManager:
   - Walkable
   - Water
   - UI
-  - 
-  - 
+  - PostProcessing
+  - Player
   - 
   - 
   - 

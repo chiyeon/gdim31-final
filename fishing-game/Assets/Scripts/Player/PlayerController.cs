@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    // singleton
+    public static PlayerController instance;
 
     [Header("Player Controls")]
     [SerializeField]
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private float jumpForce = 10.0f;
     [SerializeField]
     private float gravity = -10f;
+    private bool movementDisabled = false;
     private bool isGrounded = false;
     private Vector3 velocity;
 
@@ -31,6 +34,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform mainCamera;
     private CharacterController controller;
+
+    void Awake() {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +65,8 @@ public class PlayerController : MonoBehaviour
             velocity.y = -2f;
         }
 
+        if(movementDisabled)
+            return;
         // move player & jump
         Vector3 dir = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
 
@@ -70,5 +79,9 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void SetMovementDisabled(bool _movementDisabled) {
+        movementDisabled = _movementDisabled;
     }
 }
