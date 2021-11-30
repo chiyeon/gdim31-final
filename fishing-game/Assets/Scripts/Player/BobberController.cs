@@ -13,6 +13,7 @@ public class BobberController : MonoBehaviour
     [SerializeField]
     private float waterHeight = 87;     // y level of the water object, using collision isn't consistent so ill use math!
     [Header("Catch Data")]
+    [SerializeField]
     private Vector3 bobberCatchPosition = new Vector3(0, -1, 0);
     private bool caught = false;
 
@@ -98,5 +99,9 @@ public class BobberController : MonoBehaviour
         if(collider.gameObject.CompareTag("FinishFishing")) {
             FishingController.instance.Catch(caught);
         }
+    }
+
+    public Transform GetBobberModel() {
+        return BobberModel;
     }
 }

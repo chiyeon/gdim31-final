@@ -37,8 +37,7 @@ public class PlayerController : MonoBehaviour
     private Transform mainCamera;
     //private CharacterController controller;
     private Rigidbody rb;
-    [SerializeField]
-    private Animator handAnimator;
+    private Animator animator;
 
 
     private Vector3 dir;
@@ -54,6 +53,7 @@ public class PlayerController : MonoBehaviour
         //controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+        animator = GetComponent<Animator>();
 
         Global.instance.SetFPSMouse(true);
     }
@@ -114,8 +114,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetNavigating(bool _isNavigating, Transform parent) {
         isNavigating = _isNavigating;
-
-        handAnimator.SetBool("isNavigating", _isNavigating);
+        animator.SetBool("isNavigating", _isNavigating);
     
         // TODO: fix this when navigating!
 
