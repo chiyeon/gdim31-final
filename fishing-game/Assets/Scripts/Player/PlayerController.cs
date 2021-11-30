@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     //[SerializeField]
     //private float gravity = -10f;
     private bool isNavigating = false;
+    private bool disableControls = false;
     private bool isGrounded = false;
     private Vector3 velocity;
     private bool jump = false;
@@ -36,8 +37,12 @@ public class PlayerController : MonoBehaviour
     private Transform mainCamera;
     //private CharacterController controller;
     private Rigidbody rb;
+    [SerializeField]
+    private Animator handAnimator;
+
 
     private Vector3 dir;
+    private Vector2 mouseLook;
     private Collider col;
     void Awake() {
         instance = this;
@@ -57,7 +62,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // mouse look
-        Vector2 mouseLook = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * mouseSensitivity * Time.deltaTime;
+        if(!disableControls)
+            mouseLook = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * mouseSensitivity * Time.deltaTime;
+        else
+            mouseLook = Vector2.zero;
 
         xRotation -= mouseLook.y;
         xRotation = Mathf.Clamp(xRotation, -80, 80);
@@ -68,7 +76,7 @@ public class PlayerController : MonoBehaviour
     
         // check if touching ground
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundLayer);
-        if(Input.GetButtonDown("Jump") && isGrounded) {
+        if(Input.GetButtonDown("Jump") && isGrounded && !disableControls) {
             //velocity.y = jumpForce;
             jump = true;
         }
@@ -82,7 +90,10 @@ public class PlayerController : MonoBehaviour
             return;
         }
         // move player & jump
-        dir = mainCamera.right * Input.GetAxis("Horizontal") * speed + mainCamera.forward * Input.GetAxis("Vertical") * speed;
+        if(!disableControls)
+            dir = mainCamera.right * Input.GetAxis("Horizontal") * speed + mainCamera.forward * Input.GetAxis("Vertical") * speed;
+        else
+            dir = Vector3.zero;
 
         //controller.Move(dir * speed * Time.deltaTime);
 
@@ -104,6 +115,10 @@ public class PlayerController : MonoBehaviour
     public void SetNavigating(bool _isNavigating, Transform parent) {
         isNavigating = _isNavigating;
 
+        handAnimator.SetBool("isNavigating", _isNavigating);
+    
+        // TODO: fix this when navigating!
+
         if(isNavigating) {
             transform.SetParent(parent);
             FishingController.instance.OnNavigating();
@@ -115,4 +130,13 @@ public class PlayerController : MonoBehaviour
     public bool GetNavigating() {
         return isNavigating;
     }
+
+    public void SetDisableControls(bool _disableControls) {
+        disableControls = _disableControls;
+    }
+
+    public bool GetDisableControls() {
+        return disableControls;
+    }
+
 }

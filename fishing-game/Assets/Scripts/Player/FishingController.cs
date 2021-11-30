@@ -25,6 +25,12 @@ public class FishingController : MonoBehaviour
     private float reelingAngle = 15;
     private bool justCaught = false;
 
+    [Header("Catch Database")]
+    public List<Catch> fishCatches;
+    public List<Catch> jumpscareCatches;
+    public List<Catch> itemCatches;
+
+
     [Header("References")]
     [SerializeField]
     private Transform bobberRelease;
@@ -37,17 +43,22 @@ public class FishingController : MonoBehaviour
     private GameObject spinningThing;
     [SerializeField]
     private Collider finishFishingRadius;
-
+    private Animator animator;
+    
+    
     void Awake() {
         instance = this;
     }
 
     void Start() {
         controller = GetComponent<PlayerController>();
+        animator = GetComponent<Animator>();
         finishFishingRadius.enabled = false;
     }
 
     void Update() {
+        if(controller.GetDisableControls())
+            return;
         if(!controller.GetNavigating()) {
             if(!casted) {
                 if(!justCaught) {
@@ -68,6 +79,8 @@ public class FishingController : MonoBehaviour
                     }
                 }
             } else {
+                // poll see if player will get random item
+
                 if(Input.GetButton("Fire1")) {
                     // reel in
                     // real animation
@@ -109,15 +122,34 @@ public class FishingController : MonoBehaviour
 
     // called from bobber when it enters the finish fishing radius
     // gives catch and releases
-    public void Catch() {
+    public void Catch(bool caught) {
         // enable this bool to make it so player can keep holdin gleft click and it wont cast again
         justCaught = true;
-        Debug.Log("caught something");
         Release();
+
+        if(caught) {
+            Debug.Log("caught somethign!");
+            // determine what kind of fish it is
+            animator.SetTrigger("Jumpscare");
+            // do stuff for us catching fish
+        } // otherwise do nothing because no catch !
     }
 
     // run when bobber lands on valid water and sticks
     public void BobberLanded() {
         finishFishingRadius.enabled = true;
+    }
+
+    public void StartCatching() {
+        controller.SetDisableControls(true);
+    }
+
+    public void EndCatching() {
+        controller.SetDisableControls(false);
+        justCaught = false;
+    }
+
+    public void JumpScare() {
+        CameraShake.instance.Shake(0.35f, 0.05f);
     }
 }
