@@ -94,7 +94,7 @@ public class FishingController : MonoBehaviour
                     if(!justCaught) {
                         if(Input.GetButton("Fire1")) {
                             fishingPower = Mathf.Lerp(fishingPower, maxFishingPower, Time.deltaTime * fishingPowerAcceleration);
-                            float targetRot = fullPowerAngle * fishingPower / maxFishingPower;
+                            float targetRot = (fullPowerAngle - idleAngle) * (fishingPower / maxFishingPower) + idleAngle;
                             FishingRod.transform.localRotation = Quaternion.Lerp(FishingRod.transform.localRotation, Quaternion.Euler(new Vector3(targetRot, 0, 0)), Time.deltaTime * 5);
                         } else {
                             FishingRod.transform.localRotation = Quaternion.Lerp(FishingRod.transform.localRotation, Quaternion.Euler(new Vector3(idleAngle, 0, 0)), Time.deltaTime * 2);
