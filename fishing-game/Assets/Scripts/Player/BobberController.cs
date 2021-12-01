@@ -35,6 +35,9 @@ public class BobberController : MonoBehaviour
     private Transform player;
     private Rigidbody rb;
 
+    private Coroutine waitCatchCoroutine;
+    private bool touchedRipple = false;     // ensure we only touch one ripple!
+
     void Awake() {
         rb = GetComponent<Rigidbody>();
     }
@@ -98,10 +101,27 @@ public class BobberController : MonoBehaviour
         } else*/
         if(collider.gameObject.CompareTag("FinishFishing")) {
             FishingController.instance.Catch(caught);
+        } else if(collider.gameObject.CompareTag("Ripple") && !touchedRipple) {
+            // we landed in a ripple, random chance to wait to catch a fish
+            touchedRipple = true;
+            waitCatchCoroutine = StartCoroutine(WaitThenCatch(collider.gameObject));
         }
     }
 
     public Transform GetBobberModel() {
         return BobberModel;
+    }
+
+    // waits a random amount of time, then delete the ripple and catch as long as we are still fishing
+    IEnumerator WaitThenCatch(GameObject ripple) {
+        yield return new WaitForSeconds(Random.Range(1f, 3f));
+        Catch();
+        Destroy(ripple);
+    }
+
+    public void Remove() {
+        if(waitCatchCoroutine != null)
+            StopCoroutine(waitCatchCoroutine);
+        Destroy(gameObject);
     }
 }

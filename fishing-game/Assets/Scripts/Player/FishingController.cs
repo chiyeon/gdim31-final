@@ -33,6 +33,13 @@ public class FishingController : MonoBehaviour
 
     [Header("Catch Database")]
     public List<GameObject> fishModels;
+    [Header("Pulling Stuff")]
+    [SerializeField]
+    private float pullDecreaseAmount = 0.35f;
+    [SerializeField]
+    private float pullIncreaseAmount = 0.5f;
+    [SerializeField]
+    private float pullTimer = 0;
 
 
     [Header("References")]
@@ -106,6 +113,7 @@ public class FishingController : MonoBehaviour
                                 bobberInstance.Launch(fishingPower * 60);
                                 casted = true;
                                 renderLine = true;
+                                pullTimer = 0;
                             }
                         }
                     }
@@ -114,16 +122,28 @@ public class FishingController : MonoBehaviour
                     // poll see if player will get random item
 
                     if(Input.GetButton("Fire1")) {
-                        // reel in
-                        // real animation
+                        // make bobber move towards player
                         bobberInstance.pulling = true;
+                        // make fishing rod move up to its reeling angle
                         FishingRod.transform.localRotation = Quaternion.Lerp(FishingRod.transform.localRotation, Quaternion.Euler(new Vector3(reelingAngle, 0, 0)), Time.deltaTime * 3);
+                        // spin the spinny thing
                         spinningThing.transform.Rotate(Vector3.right, -1000 * Time.deltaTime, Space.Self);
+                        // increase the pull timer !
+                        pullTimer += Time.deltaTime * pullIncreaseAmount;
+                        if(pullTimer >= 1) {
+                            // we have pulled too fast! cut the line
+                            Release();
+                        }
                     } else {
+                        // casted angle
                         FishingRod.transform.localRotation = Quaternion.Lerp(FishingRod.transform.localRotation, Quaternion.Euler(new Vector3(castedAngle, 0, 0)), Time.deltaTime * 15);
+                        // let pull timer cool down
+                        pullTimer -= Time.deltaTime * pullDecreaseAmount;
+                        // stop bobber from moving
                         if(bobberInstance)
                             bobberInstance.pulling = false;
                     }
+                    pullTimer = Mathf.Clamp(pullTimer, 0f, 1f);
                 }
 
                 if(Input.GetButtonDown("Fire2")) {
@@ -137,6 +157,14 @@ public class FishingController : MonoBehaviour
         }
     }
 
+    void FixedUpdate() {
+        if(casted) {
+            float shakeAmount = pullTimer - 0.5f;
+            shakeAmount = Mathf.Clamp(shakeAmount, 0f, 1f);
+            CameraShake.instance.Shake(0.1f, shakeAmount/15f);
+        }
+    }
+
     public void OnNavigating() {
         Release();
         justCaught = false;
@@ -147,7 +175,7 @@ public class FishingController : MonoBehaviour
         finishFishingRadius.enabled = false;
         fishingPower = 0;
         if(bobberInstance) {
-            Destroy(bobberInstance.gameObject);
+            bobberInstance.Remove();
             bobberInstance = null;
         }
         CutLine();
