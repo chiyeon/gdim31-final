@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// look at a Transform
 public class LookAtTarget : MonoBehaviour
 {
     public Transform target;

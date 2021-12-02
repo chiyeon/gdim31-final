@@ -1,0 +1,12 @@
+add inventory
+UI inventory able to see collected items
+fishing crates
+readable notes
+other items with descriptions
+fish item
+fish item from territory & disable territory
+map & map UI
+show territories on map
+inner level model & implementation
+intro cutscene
+outro cutscene

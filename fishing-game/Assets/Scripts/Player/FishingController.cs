@@ -5,61 +5,45 @@ using UnityEngine;
 public class FishingController : MonoBehaviour
 {
     public static FishingController instance;
-    [Header("Fishing Variables")]
-    private float fishingPower = 0;
-    [SerializeField]
-    private float maxFishingPower = 5;
-    [SerializeField]
-    private float fishingPowerAcceleration = 1.25f;
-    private PlayerController controller;
-    private BobberController bobberInstance;
-    private bool casted = false;
-    private bool renderLine = false;
-    private Vector3 linePosition;
 
-    [Header("Fishing Rod Angles")]
-    [SerializeField]
-    private float idleAngle = 0;
-    [SerializeField]
-    private float fullPowerAngle = -70;
-    [SerializeField]
-    private float castedAngle = 35;
-    [SerializeField]
-    private float reelingAngle = 15;
-    private bool justCaught = false;
-    private bool transferringLine = false; // active when we are switching to fish catching animation
+    [Header("Fishing Variables")]
+    private float fishingPower = 0;                 // actively used to determine force to throw bobber at
+    [SerializeField] private float maxFishingPower = 5;     // max force
+    [SerializeField] private float fishingPowerAcceleration = 1.25f;    // speed at which power inc when mouse held down
+    private BobberController bobberInstance;        // reference to the active bobber, null when not casted
+    private bool casted = false;                    // whether or not we have casted a bobber (starts when left button let go)
+    private bool renderLine = false;                // whether or not to render the fishing line
+    private Vector3 linePosition;                   // the second, target position (bobber); seperate var required to smoothly transition in fish catch animation
+
+    [Header("Fishing Rod Angles")]                  // lerp between these for procedural animations
+    [SerializeField] private float idleAngle = 0;
+    [SerializeField] private float fullPowerAngle = -70;
+    [SerializeField] private float castedAngle = 35;
+    [SerializeField] private float reelingAngle = 15;
+    private bool justCaught = false;                // used to ensure we dont accidentally cast again when we keep holding left click after another ends
+    private bool transferringLine = false;          // active when we are switching to fish catching animation
 
     [Header("Catch Stuffs")]
-    private GameObject fishModelInstance;
+    private GameObject fishModelInstance;           // fish mode for catch animation
+    [SerializeField] private List<GameObject> fishModels;   // all possible fishie models
 
-    [Header("Catch Database")]
-    public List<GameObject> fishModels;
-    [Header("Pulling Stuff")]
-    [SerializeField]
-    private float pullDecreaseAmount = 0.35f;
-    [SerializeField]
-    private float pullIncreaseAmount = 0.5f;
-    [SerializeField]
-    private float pullTimer = 0;
+    [Header("Pulling Stuff")]                       // used to determine whether or not line will break when pulling
+    [SerializeField] private float pullDecreaseAmount = 0.35f;
+    [SerializeField] private float pullIncreaseAmount = 0.5f;
+    [SerializeField] private float pullTimer = 0;
     private int fishInstance = -1;       // make sure we dont get the same fish over and over !
 
     [Header("References")]
-    [SerializeField]
-    private Transform bobberRelease;
-    [SerializeField]
-    private GameObject Bobber;
-    [SerializeField]
-    private GameObject FishingRod;
-    private Coroutine swingAnimationCoroutine;
-    [SerializeField]
-    private GameObject spinningThing;
-    [SerializeField]
-    private Collider finishFishingRadius;
+    [SerializeField] private Transform bobberRelease;
+    [SerializeField] private GameObject Bobber;
+    [SerializeField] private GameObject FishingRod;
+    [SerializeField] private GameObject spinningThing;
+    [SerializeField] private Collider finishFishingRadius;
+    [SerializeField] private Transform CaughtObject;
+    [SerializeField] private LineRenderer lineRenderer;
     private Animator animator;
-    [SerializeField]
-    private Transform CaughtObject;
-    [SerializeField]
-    private LineRenderer lineRenderer;
+    private PlayerController controller;
+    private Coroutine swingAnimationCoroutine;
     
     
     void Awake() {
@@ -69,11 +53,13 @@ public class FishingController : MonoBehaviour
     void Start() {
         controller = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
+
         finishFishingRadius.enabled = false;
         lineRenderer.enabled = false;
     }
 
     void Update() {
+        // render fishing line when necessary
         if(renderLine) {
             lineRenderer.enabled = true;
             // make sure fishing line is always connected to the rod first
@@ -83,13 +69,16 @@ public class FishingController : MonoBehaviour
             // if we are actively fishing, connect it to bobber, otherwise connect it to the caught fish (for the animation)
             if(fishModelInstance != null) {
                 if(transferringLine) {
+                    // smoothly move when needed
                     linePosition = Vector3.Lerp(linePosition, fishModelInstance.transform.position, Time.deltaTime * 3);
                 } else {
+                    // otherwise set it directly
                     linePosition = fishModelInstance.transform.position;
                 }
             } else {
+                // when bobber is out use that position
                 if(bobberInstance) {
-                    linePosition = bobberInstance.GetComponent<BobberController>().GetBobberModel().position;
+                    linePosition = bobberInstance.GetBobberModel().position;
                 }
             }
         } else {
@@ -100,6 +89,7 @@ public class FishingController : MonoBehaviour
             if(!controller.GetDisableControls()) {
                 if(!casted) {
                     if(!justCaught) {
+                        // charging fishing rod to throw again
                         if(Input.GetButton("Fire1")) {
                             fishingPower = Mathf.Lerp(fishingPower, maxFishingPower, Time.deltaTime * fishingPowerAcceleration);
                             float targetRot = (fullPowerAngle - idleAngle) * (fishingPower / maxFishingPower) + idleAngle;
@@ -108,6 +98,7 @@ public class FishingController : MonoBehaviour
                             FishingRod.transform.localRotation = Quaternion.Lerp(FishingRod.transform.localRotation, Quaternion.Euler(new Vector3(idleAngle, 0, 0)), Time.deltaTime * 2);
                         }
                         
+                        // throw bobber, cast
                         if(Input.GetButtonUp("Fire1")) {
                             if(bobberInstance == null) {
                                 bobberInstance = Instantiate(Bobber, bobberRelease.position, bobberRelease.rotation).GetComponent<BobberController>();
@@ -119,9 +110,7 @@ public class FishingController : MonoBehaviour
                         }
                     }
                 } else {
-
-                    // poll see if player will get random item
-
+                    // pulling
                     if(Input.GetButton("Fire1")) {
                         // make bobber move towards player
                         bobberInstance.pulling = true;
@@ -147,10 +136,12 @@ public class FishingController : MonoBehaviour
                     pullTimer = Mathf.Clamp(pullTimer, 0f, 1f);
                 }
 
+                // release fishing rod when pressing right click
                 if(Input.GetButtonDown("Fire2")) {
                     if(casted)
                         Release();
                 }
+                // reset just caught
                 if(Input.GetButtonUp("Fire1")) {
                     justCaught = false;
                 }
@@ -159,6 +150,7 @@ public class FishingController : MonoBehaviour
     }
 
     void FixedUpdate() {
+        // shake in fixed update to ensure consistency
         if(casted) {
             float shakeAmount = pullTimer - 0.5f;
             shakeAmount = Mathf.Clamp(shakeAmount, 0f, 1f);
@@ -166,11 +158,13 @@ public class FishingController : MonoBehaviour
         }
     }
 
+    // run only when we switch to navigating mode
     public void OnNavigating() {
         Release();
         justCaught = false;
     }
-    // cuts line and resets fishing
+
+    // cuts line and resets fishing vars
     public void Release() {
         casted = false;
         finishFishingRadius.enabled = false;
@@ -208,17 +202,22 @@ public class FishingController : MonoBehaviour
         finishFishingRadius.enabled = true;
     }
 
+    // === CALLED DURING ANIMATION EVENTS ===
+
+    // start of animation, disable controls
     public void StartCatching() {
         controller.SetDisableControls(true);
         renderLine = true;      // reenable, turned off in Release()
         transferringLine = true;
     }
 
+    // run start of idle animation, catch anim over
     public void EndCatching() {
         controller.SetDisableControls(false);
         justCaught = false;
     }
 
+    // spawn temp fish model for catch animation
     public void CreateFishInstance() {
         int newFish = -1;
         do {
@@ -228,10 +227,12 @@ public class FishingController : MonoBehaviour
         fishModelInstance = Instantiate(fishModels[fishInstance], CaughtObject);
     }
 
+    // fix vars
     public void StopLineTransfer() {
         transferringLine = false;
     }
 
+    // remove instance
     public void DestroyFishInstance() {
         if(fishModelInstance)
             Destroy(fishModelInstance);
