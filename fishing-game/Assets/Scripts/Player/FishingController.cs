@@ -16,6 +16,7 @@ public class FishingController : MonoBehaviour
     private bool casted = false;
     private bool renderLine = false;
     private Vector3 linePosition;
+
     [Header("Fishing Rod Angles")]
     [SerializeField]
     private float idleAngle = 0;
@@ -40,7 +41,7 @@ public class FishingController : MonoBehaviour
     private float pullIncreaseAmount = 0.5f;
     [SerializeField]
     private float pullTimer = 0;
-
+    private int fishInstance = -1;       // make sure we dont get the same fish over and over !
 
     [Header("References")]
     [SerializeField]
@@ -184,12 +185,13 @@ public class FishingController : MonoBehaviour
     // called from bobber when it enters the finish fishing radius
     // gives catch and releases
     public void Catch(bool caught) {
-        // enable this bool to make it so player can keep holdin gleft click and it wont cast again
+        // enable this bool to make it so player can keep holding left click and it wont cast again
         justCaught = true;
         Release();
 
         if(caught) {
-            // determine what kind of fish it is
+            // start animation, then rest handled by animation events
+            // determine what kind of catch it is
             float det = Random.Range(0f, 1f);
             if(det <= 0.30f) {                          // 30% chance jumpscare
                 animator.SetTrigger("Jumpscare");
@@ -218,7 +220,12 @@ public class FishingController : MonoBehaviour
     }
 
     public void CreateFishInstance() {
-        fishModelInstance = Instantiate(fishModels[Random.Range(0, fishModels.Count)], CaughtObject);
+        int newFish = -1;
+        do {
+            newFish = Random.Range(0, fishModels.Count);
+        } while(newFish == fishInstance);
+        fishInstance = newFish;
+        fishModelInstance = Instantiate(fishModels[fishInstance], CaughtObject);
     }
 
     public void StopLineTransfer() {

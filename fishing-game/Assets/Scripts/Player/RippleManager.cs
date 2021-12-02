@@ -34,17 +34,5 @@ public class RippleManager : MonoBehaviour
                 }
             }
         }
-
-        foreach(GameObject ripple in ripples) {
-            if(ripple == null) {
-                // our ripple was deleted as part of bobber probably hitting it, just remove it and keep goin
-                ripples.Remove(ripple);
-            }
-
-            if(Vector3.Distance(ripple.transform.position, transform.position) > maxRadius) {
-                ripples.Remove(ripple);
-                Destroy(ripple);
-            }
-        }
     }
 }
