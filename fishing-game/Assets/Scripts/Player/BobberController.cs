@@ -4,58 +4,47 @@ using UnityEngine;
 
 public class BobberController : MonoBehaviour
 {
-    [SerializeField]
-    private LayerMask layerMask;
-    [SerializeField]
-    private float pullSpeed = 3f;
-    public bool pulling = false;
+    [Header("Bobber data")]
+    [SerializeField] private float pullSpeed = 3f;
+    [SerializeField] private float minWaitTime = 2f;
+    [SerializeField] private float maxWaitTime = 6f;
+    private bool touchedRipple = false;     // ensure we only touch one ripple!
+    private bool pulling = false;           // is player actively pulling bobber
     
-    [SerializeField]
-    private float waterHeight = 87;     // y level of the water object, using collision isn't consistent so ill use math!
+    [SerializeField] private float waterHeight = 87;     // y level of the water object, using collision isn't consistent so ill use math!
     [Header("Catch Data")]
-    [SerializeField]
-    private Vector3 bobberCatchPosition = new Vector3(0, -1, 0);
+    [SerializeField] private Vector3 bobberCatchPosition = new Vector3(0, -1, 0);
     private bool caught = false;
 
     [Header("Bobbing Data")]
-    [SerializeField]
-    private float baseBobRate = 7.0f;
-    [SerializeField]
-    private float pullingBobRate = 12.0f;
+    [SerializeField] private float baseBobRate = 7.0f;
+    [SerializeField] private float pullingBobRate = 12.0f;
     private float bobRate = 7.0f;
-    [SerializeField]
-    private float baseBobDistance = 0.25f;
-    [SerializeField]
-    private float pullingBobDistance = 0.39f;
+
+    [SerializeField] private float baseBobDistance = 0.25f;
+    [SerializeField] private float pullingBobDistance = 0.39f;
     private float bobDistance = 0.25f;
 
     [Header("References")]
-    [SerializeField]
-    private Transform BobberModel;
+    [SerializeField] private Transform BobberModel;
     private Transform player;
     private Rigidbody rb;
-
     private Coroutine waitCatchCoroutine;
-    private bool touchedRipple = false;     // ensure we only touch one ripple!
 
     void Awake() {
         rb = GetComponent<Rigidbody>();
     }
 
     void Start() {
-        player = FishingController.instance.transform;
+        player = FishingController.instance.transform;  // nab a player reference
     }
     
-    // launch bobber in direction
+    // launch bobber in direction, used when initially casting
     public void Launch(float force) {
         rb.AddForce(transform.forward * force, ForceMode.Impulse);
     }
 
     void Update() {
-
-        if(Input.GetKeyDown(KeyCode.C))
-            Catch();
-
         // if we havent caught anything bob up and down idly
         if(!caught) {
             BobberModel.Translate(BobberModel.up * Time.deltaTime * Mathf.Sin(Time.time * bobRate) * bobDistance);
@@ -92,29 +81,19 @@ public class BobberController : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider collider) {
-        /*
-        if((layerMask.value & (1 << collider.gameObject.layer)) > 0) {
-            rb.isKinematic = true;
-            transform.LookAt(player);
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-            FishingController.instance.BobberLanded();
-        } else*/
+        // bumps into radius around player, close enough to catch
         if(collider.gameObject.CompareTag("FinishFishing")) {
             FishingController.instance.Catch(caught);
         } else if(collider.gameObject.CompareTag("Ripple") && !touchedRipple) {
-            // we landed in a ripple, random chance to wait to catch a fish
-            touchedRipple = true;
+            // we landed in a ripple, random wait time to bite
+            touchedRipple = true;   // ensure we only touch a single ripple!
             waitCatchCoroutine = StartCoroutine(WaitThenCatch(collider.gameObject));
         }
     }
 
-    public Transform GetBobberModel() {
-        return BobberModel;
-    }
-
     // waits a random amount of time, then delete the ripple and catch as long as we are still fishing
     IEnumerator WaitThenCatch(GameObject ripple) {
-        yield return new WaitForSeconds(Random.Range(1f, 3f));
+        yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
         Catch();
         Destroy(ripple);
     }
@@ -123,5 +102,13 @@ public class BobberController : MonoBehaviour
         if(waitCatchCoroutine != null)
             StopCoroutine(waitCatchCoroutine);
         Destroy(gameObject);
+    }
+
+    public Transform GetBobberModel() {
+        return BobberModel;
+    }
+
+    public void SetPulling(bool _pulling) {
+        pulling = _pulling;
     }
 }

@@ -62,7 +62,7 @@ public class FishingController : MonoBehaviour
         // render fishing line when necessary
         if(renderLine) {
             lineRenderer.enabled = true;
-            // make sure fishing line is always connected to the rod first
+            // 0 -> connect to end of rod, 1 -> connect to bobber
             lineRenderer.SetPosition(0, lineRenderer.transform.position);
             lineRenderer.SetPosition(1, linePosition);
 
@@ -98,7 +98,7 @@ public class FishingController : MonoBehaviour
                             FishingRod.transform.localRotation = Quaternion.Lerp(FishingRod.transform.localRotation, Quaternion.Euler(new Vector3(idleAngle, 0, 0)), Time.deltaTime * 2);
                         }
                         
-                        // throw bobber, cast
+                        // cast bobber when letting go of left click
                         if(Input.GetButtonUp("Fire1")) {
                             if(bobberInstance == null) {
                                 bobberInstance = Instantiate(Bobber, bobberRelease.position, bobberRelease.rotation).GetComponent<BobberController>();
@@ -113,7 +113,7 @@ public class FishingController : MonoBehaviour
                     // pulling
                     if(Input.GetButton("Fire1")) {
                         // make bobber move towards player
-                        bobberInstance.pulling = true;
+                        bobberInstance.SetPulling(true);
                         // make fishing rod move up to its reeling angle
                         FishingRod.transform.localRotation = Quaternion.Lerp(FishingRod.transform.localRotation, Quaternion.Euler(new Vector3(reelingAngle, 0, 0)), Time.deltaTime * 3);
                         // spin the spinny thing
@@ -131,7 +131,7 @@ public class FishingController : MonoBehaviour
                         pullTimer -= Time.deltaTime * pullDecreaseAmount;
                         // stop bobber from moving
                         if(bobberInstance)
-                            bobberInstance.pulling = false;
+                            bobberInstance.SetPulling(false);
                     }
                     pullTimer = Mathf.Clamp(pullTimer, 0f, 1f);
                 }
