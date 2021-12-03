@@ -7,15 +7,12 @@ public class Trigger : MonoBehaviour
     [SerializeField]
     private bool disableOnTrigger;
 
-    public delegate void OnEventTrigger();
-    public OnEventTrigger onEventTrigger;
+    [SerializeField] private List<Event> events;
 
     public void OnTrigger()
     {
-        if (onEventTrigger != null)
-            onEventTrigger();
-
-        if (disableOnTrigger)
-            onEventTrigger = null;
+        foreach(Event e in events) {
+            e.OnEvent();
+        }
     }
 }
