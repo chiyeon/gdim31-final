@@ -11,6 +11,7 @@ public class UIInventory : MonoBehaviour
     [SerializeField] private GameObject ItemInstanceObject;
     [SerializeField] private GameObject Tooltip;
     [SerializeField] private GameObject InventoryPanel;
+    [SerializeField] private GameObject BookPanel;
 
     void Awake() {
         instance = this;
@@ -20,6 +21,7 @@ public class UIInventory : MonoBehaviour
     void Start() {
         InventoryPanel.SetActive(false);            // off by default
         Tooltip.SetActive(false);
+        BookPanel.SetActive(false);
     }
 
     void Update() {
@@ -28,6 +30,7 @@ public class UIInventory : MonoBehaviour
             InventoryPanel.SetActive(!InventoryPanel.activeSelf);           // open panel
             Global.instance.SetFPSMouse(!InventoryPanel.activeSelf);        // remove mouse lock
             PlayerController.instance.SetDisableControls(!PlayerController.instance.GetDisableControls());      // freeze player
+            ItemInstance.SetMouseOverItem(null);
         }
 
         if(ItemInstance.GetMouseOverItem() != null) {
@@ -42,5 +45,9 @@ public class UIInventory : MonoBehaviour
     public void AddItem(Item item) {
         ItemInstance itemInstance = Instantiate(ItemInstanceObject, itemsParent).GetComponent<ItemInstance>();
         itemInstance.Set(item);
+    }
+
+    public void ToggleBookUI() {
+        BookPanel.SetActive(!BookPanel.activeSelf);
     }
 }

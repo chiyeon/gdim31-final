@@ -11,14 +11,26 @@ public class ItemInstance : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private Item item;
 
     [SerializeField] private Image icon;
+    [SerializeField] private Image interactableHint;
 
     public void Set(Item _item) {
         item = _item;
         icon.sprite = _item.GetIcon();
+        if(item.IsInteractable()) {
+            interactableHint.gameObject.SetActive(true);
+            GetComponent<Button>().enabled = true;
+        } else {
+            interactableHint.gameObject.SetActive(false);
+            GetComponent<Button>().enabled = false;
+        }
     }
 
     public static Item GetMouseOverItem() {
         return MouseOverItem;
+    }
+
+    public static void SetMouseOverItem(Item item) {
+        MouseOverItem = item;
     }
 
     public void OnPointerEnter(PointerEventData data) {
@@ -27,5 +39,11 @@ public class ItemInstance : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerExit(PointerEventData data) {
         MouseOverItem = null;
+    }
+
+    public void Interact() {
+        if(item is InteractableItem) {
+            ((InteractableItem)item).Interact();
+        }
     }
 }

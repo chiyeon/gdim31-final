@@ -30,6 +30,7 @@ public class BobberController : MonoBehaviour
     private Transform player;
     private Rigidbody rb;
     private Coroutine waitCatchCoroutine;
+    private Transform crate;        // any connected crate
 
     void Awake() {
         rb = GetComponent<Rigidbody>();
@@ -45,19 +46,21 @@ public class BobberController : MonoBehaviour
     }
 
     void Update() {
-        // if we havent caught anything bob up and down idly
-        if(!caught) {
-            BobberModel.Translate(BobberModel.up * Time.deltaTime * Mathf.Sin(Time.time * bobRate) * bobDistance);
-        } else {
-            // otherwise go to the down caught position underwater
-            BobberModel.localPosition = Vector3.Lerp(BobberModel.localPosition, bobberCatchPosition, Time.deltaTime * 3);
+        // only if we arent on top of a crate
+        if(!crate) {
+            // if we havent caught anything bob up and down idly
+            if(!caught) {
+                BobberModel.Translate(BobberModel.up * Time.deltaTime * Mathf.Sin(Time.time * bobRate) * bobDistance);
+            } else {
+                // otherwise go to the down caught position underwater
+                BobberModel.localPosition = Vector3.Lerp(BobberModel.localPosition, bobberCatchPosition, Time.deltaTime * 3);
+            }
         }
 
         // if we have dropped below the water height (we hit the water), freeze position and ensure it is consistent
         if(transform.position.y <= waterHeight && rb.isKinematic == false) {
-            rb.isKinematic = true;
+            Freeze();
             transform.position = new Vector3(transform.position.x, waterHeight, transform.position.z);
-            FishingController.instance.BobberLanded();
         } else {
             // at that point always face the player
             transform.LookAt(player);
@@ -76,6 +79,12 @@ public class BobberController : MonoBehaviour
         }
     }
 
+    // when we hit something
+    void Freeze() {
+        rb.isKinematic = true;
+        FishingController.instance.BobberLanded();
+    }
+
     public void Catch() {
         caught = true;
     }
@@ -83,11 +92,19 @@ public class BobberController : MonoBehaviour
     void OnTriggerEnter(Collider collider) {
         // bumps into radius around player, close enough to catch
         if(collider.gameObject.CompareTag("FinishFishing")) {
+            if(crate) {
+                crate.GetComponent<CrateController>().Open();
+            }
             FishingController.instance.Catch(caught);
         } else if(collider.gameObject.CompareTag("Ripple") && !touchedRipple) {
             // we landed in a ripple, random wait time to bite
             touchedRipple = true;   // ensure we only touch a single ripple!
             waitCatchCoroutine = StartCoroutine(WaitThenCatch(collider.gameObject));
+        } else if(collider.gameObject.CompareTag("Crate")) {
+            Freeze();
+            crate = collider.transform;
+            crate.SetParent(transform);
+            // play sound
         }
     }
 
@@ -99,6 +116,8 @@ public class BobberController : MonoBehaviour
     }
 
     public void Remove() {
+        if(crate)
+            crate.SetParent(null);
         if(waitCatchCoroutine != null)
             StopCoroutine(waitCatchCoroutine);
         Destroy(gameObject);

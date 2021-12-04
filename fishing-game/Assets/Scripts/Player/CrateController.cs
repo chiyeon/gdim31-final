@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class CrateController : MonoBehaviour
 {
-    [Header("Crate Variables")]
-    // serializable reference of list of items inside it
 
     [Header("References")]
-    // reference to trigger
+    private Trigger trigger;
     // serialized reference to crate model
-    int t = 0;
+
+    void Start() {
+        trigger = GetComponent<Trigger>();
+    }
 
     void Update() {
         // make crate bob up and down
+    }
+
+    public void Open() {
+        trigger.OnTrigger();
+        Destroy(gameObject);
     }
 }
