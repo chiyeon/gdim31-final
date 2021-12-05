@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Global : MonoBehaviour
 {
@@ -26,5 +27,9 @@ public class Global : MonoBehaviour
             SetFPSMouse(paused);
             paused = !paused;
         }
+    }
+
+    public void LoadScene(int sceneID) {
+        SceneManager.LoadScene(sceneID);
     }
 }
