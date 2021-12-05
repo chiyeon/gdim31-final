@@ -191,6 +191,7 @@ public class FishingController : MonoBehaviour
             // determine what kind of catch it is
             float det = Random.Range(0f, 1f);
 
+            // debug p7urposes, turn catch coutner < 6!
             if(catchCounter < 0) {
                 catchCounter++;
             } else {
