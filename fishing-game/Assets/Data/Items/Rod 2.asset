@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcc8fee6aa579f849a8db258d7cf7372, type: 3}
-  m_Name: Test2
+  m_Name: Rod 2
   m_EditorClassIdentifier: 
-  name: Test Item 2
-  description: An Item for Testing # 2
-  icon: {fileID: 21300000, guid: 0af48160a88ef4a43bce6156aae2fcc7, type: 3}
-  interactable: 1
+  name: Cursed Component
+  description: It looks like a rod
+  icon: {fileID: 21300000, guid: 724aa35a7e4084547b8469624af3849d, type: 3}
+  interactable: 0

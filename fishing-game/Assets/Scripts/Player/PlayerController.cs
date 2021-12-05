@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 dir;
     private Vector2 mouseLook;
     private Collider col;
+    private int currentZone;
+    private GameObject currentZoneObject;
 
     void Awake() {
         instance = this;            // set up singleton
@@ -117,4 +119,20 @@ public class PlayerController : MonoBehaviour
         return disableControls;
     }
 
+    public void SetZone(int _zoneID, GameObject _currentZoneObject) {
+        Debug.Log("Player zone is now " + _zoneID);
+        currentZone = _zoneID;
+        currentZoneObject = _currentZoneObject;
+        FishingController.instance.ResetCatchCounter();
+    }
+
+    public int GetZone() {
+        return currentZone;
+    }
+
+    public void DisableCurrentZoneObject() {
+        if(currentZoneObject) {
+            currentZoneObject.SetActive(false);
+        }
+    }
 }

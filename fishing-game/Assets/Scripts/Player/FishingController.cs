@@ -26,6 +26,8 @@ public class FishingController : MonoBehaviour
     [Header("Catch Stuffs")]
     private GameObject fishModelInstance;           // fish mode for catch animation
     [SerializeField] private List<GameObject> fishModels;   // all possible fishie models
+    [SerializeField] private List<GameObject> itemModels;   // all possible item models
+    [SerializeField] private List<Item> items;              // all possible items to give;
 
     [Header("Pulling Stuff")]                       // used to determine whether or not line will break when pulling
     [SerializeField] private float pullDecreaseAmount = 0.35f;
@@ -44,6 +46,7 @@ public class FishingController : MonoBehaviour
     private Animator animator;
     private PlayerController controller;
     private Coroutine swingAnimationCoroutine;
+    private int catchCounter = 0;       // after 6 unsuccessful catches, just give it to da player for free
     
     
     void Awake() {
@@ -184,15 +187,34 @@ public class FishingController : MonoBehaviour
         Release();
 
         if(caught) {
-            // start animation, then rest handled by animation events
+
             // determine what kind of catch it is
             float det = Random.Range(0f, 1f);
+
+            if(catchCounter < 0) {
+                catchCounter++;
+            } else {
+                det = 1;    // catch item!
+            }
+
+            // start animation, then rest handled by animation events
             if(det <= 0.30f) {                          // 30% chance jumpscare
                 animator.SetTrigger("Jumpscare");
             } else if(det <= 0.80) {                    // 50% chance fish
                 animator.SetTrigger("Fish");
             } else {                                    // 20% chance item
-                Debug.Log("item!");
+                // make sure we are in a valid zone to recieve item first.
+                // if not, just play jumpscare hehe
+                if(controller.GetZone() != 0) {
+                    animator.SetTrigger("Item");            // play anim
+                    Debug.Log(controller.GetZone()-1);
+                    InventoryManager.instance.AddItem(items[controller.GetZone()-1]);       //add item
+                    catchCounter = 0;                       // reset catch counter
+                    controller.DisableCurrentZoneObject();  // disable zone so we cant repeat
+                    // player zone is still set at this point. we must reset it AFTER the model isntance is created
+                } else {
+                    animator.SetTrigger("Jumpscare");
+                }
             }
         } // otherwise do nothing because no catch !
     }
@@ -238,6 +260,11 @@ public class FishingController : MonoBehaviour
             Destroy(fishModelInstance);
     }
 
+    public void CreateItemInstance() {
+        fishModelInstance = Instantiate(itemModels[controller.GetZone() - 1], CaughtObject);
+        controller.SetZone(0, null);
+    }
+
     public void JumpScare() {
         CameraShake.instance.Shake(0.35f, 0.05f);
         CutLine();
@@ -245,5 +272,9 @@ public class FishingController : MonoBehaviour
 
     public void CutLine() {
         renderLine = false;
+    }
+
+    public void ResetCatchCounter() {
+        catchCounter = 0;
     }
 }

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a001c25211c662b4f9dadda7e195b3ef, type: 3}
+  m_Name: Page1
+  m_EditorClassIdentifier: 
+  name: Page 1
+  description: Its crumpled
+  icon: {fileID: 21300000, guid: 4d2616018f59ce14a8eb83f3bfcfc9a0, type: 3}
+  interactable: 1
+  note: 'Day 1
+
+
+    There is no sign of life besides the fish, not any that I can
+    detect immediately in any case.
+
+
+    I''ll continue to write these and leave
+    them behind in these crates, if by some miracle someone will find them.
+
+
+    I
+    believe I''ve found what I need by the spiky rocks, a bit aways from the main
+    island. I somehow managed to snag onto it with my hook. That was not the only
+    thing I brought to the surface however.'

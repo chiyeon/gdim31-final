@@ -8,6 +8,7 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Inventory")]
     [SerializeField] private List<Item> items;
+    [SerializeField] private List<Item> pages;
 
     void Awake() {
         instance = this;
@@ -18,5 +19,9 @@ public class InventoryManager : MonoBehaviour
         UIInventory.instance.AddItem(item);
     }
 
+    public void AddPage(Item page) {
+        pages.Add(page);
+        UIInventory.instance.AddPage(page);
+    }
  
 }
