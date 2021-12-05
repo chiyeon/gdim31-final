@@ -232,6 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1401438574}
   - component: {fileID: 1401438577}
+  - component: {fileID: 62228419}
   m_Layer: 0
   m_Name: Main Camera (1)
   m_TagString: MainCamera
@@ -284,7 +285,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1056
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 9b581b9ae86113942be9f1ada1b1d848, type: 2}
   m_TargetDisplay: 0
@@ -296,6 +297,22 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &62228419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401438573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &1443136273
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 88830791178941236}
-  followSpeed: 35
+  followSpeed: 20
 --- !u!1 &5007346494122426745
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +719,7 @@ GameObject:
   - component: {fileID: 5007346494122426746}
   - component: {fileID: 650113064}
   - component: {fileID: 364935533}
+  - component: {fileID: 2110274792}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -847,6 +865,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97909b0e16b9b4645bf466ff4fa3b493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2110274792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007346494122426745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &5007346494469396894
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,9 +925,10 @@ GameObject:
   - component: {fileID: 197555349}
   - component: {fileID: 197555353}
   - component: {fileID: 804141489}
+  - component: {fileID: 503867469}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -992,7 +1027,17 @@ MonoBehaviour:
   - {fileID: 1657902884208137465, guid: 0cfdada7625fc654a93251d9ad51bc6d, type: 3}
   - {fileID: 1271844596113115284, guid: 9d50c093c273e6e448efbcd668702626, type: 3}
   - {fileID: 3415056615326415678, guid: b4e2e5eb51acd3640bd0c28ca9fd5596, type: 3}
-  pullDecreaseAmount: 0.25
+  itemModels:
+  - {fileID: 2860230084130499881, guid: b1a040b255078204489d3036f3e97986, type: 3}
+  - {fileID: 1713813415974035333, guid: 87ea43144443e414c89d4339038e7cea, type: 3}
+  - {fileID: 6641881226512519772, guid: 6f61cff8eec19884abc4adc2a3c5a1e0, type: 3}
+  - {fileID: 0}
+  items:
+  - {fileID: 11400000, guid: da89ae4e0f0f9064094939b128e82019, type: 2}
+  - {fileID: 11400000, guid: 44e746392078fd5469077192cf2a67c3, type: 2}
+  - {fileID: 11400000, guid: 6122ecd92820266489d2ec453ddf1df6, type: 2}
+  - {fileID: 0}
+  pullDecreaseAmount: 0.65
   pullIncreaseAmount: 0.35
   pullTimer: 0
   bobberRelease: {fileID: 271221060}
@@ -1021,6 +1066,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &503867469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007346494871894009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce2d7ca98b15b147aca491fa08373e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+  pages: []
 --- !u!1 &5574541108726796793
 GameObject:
   m_ObjectHideFlags: 0

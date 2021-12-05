@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &611281443
 Transform:
   m_ObjectHideFlags: 0
@@ -215,7 +215,8 @@ GameObject:
   - component: {fileID: 947927212}
   - component: {fileID: 947927214}
   - component: {fileID: 947927213}
-  m_Layer: 0
+  - component: {fileID: 947927215}
+  m_Layer: 3
   m_Name: BoatModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,6 +291,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &947927215
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947927211}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.25, y: 0.9479408, z: 3.5625002}
+  m_Center: {x: -0.0005409758, y: -0.5885258, z: 0.09433663}
 --- !u!1 &1764974325
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +513,7 @@ GameObject:
   - component: {fileID: 1545286515}
   m_Layer: 3
   m_Name: Hitboxes
-  m_TagString: Untagged
+  m_TagString: Hitboxes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -566,7 +580,7 @@ BoxCollider:
   m_GameObject: {fileID: 6088983995188728783}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2.178688, y: 0.9760742, z: 5.124029}
   m_Center: {x: -0.0130955465, y: -0.5853882, z: -0.8934043}
@@ -594,9 +608,10 @@ GameObject:
   - component: {fileID: 5983827961860938506}
   - component: {fileID: 828885585}
   - component: {fileID: 828885584}
+  - component: {fileID: 685086656}
   m_Layer: 8
   m_Name: boat
-  m_TagString: Untagged
+  m_TagString: Hitboxes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -650,7 +665,6 @@ MonoBehaviour:
   acceleration: 0.5
   maxForwardSpeed: 7
   maxBackwardSpeed: 3
-  isNavigating: 0
   rotationSpeed: 20
   playerSearch: {fileID: 1764974326}
   playerSearchRadius: 5
@@ -661,3 +675,19 @@ MonoBehaviour:
   playerNavPosition: {fileID: 364673421}
   engine: {fileID: 8298799608713111106}
   boatModel: {fileID: 947927212}
+--- !u!114 &685086656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359367993984876976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e84ada65a27602346b4bfe114445ea06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRipples: 7
+  maxRadius: 25
+  waterLevel: 87
+  Ripple: {fileID: 5543411670418030413, guid: 60d7d3724ec9f60478a5dfafdfc5b12c, type: 3}
