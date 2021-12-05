@@ -1,12 +1,40 @@
-add inventory
-UI inventory able to see collected items
-fishing crates
-readable notes
-other items with descriptions
-fish item
-fish item from territory & disable territory
-map & map UI
-show territories on map
-inner level model & implementation
-intro cutscene
-outro cutscene
+=== solid intro cutscene ===
+black text -> ive always wanted to catch the big one
+day time tutorial -> teach boat drive around to crate, pick up crate to get item
+black text -> it never bites during the day
+sunset tutorial -> tell to fish on bubbles & wait, fish runs away
+black text -> tonights the night
+night -> boat always moving forward, player can only look around
+pass by fisher man -> all stages
+when turns around to to look cut to black
+black text -> "something is off" idk
+load main
+
+=== fisherman ai ===
+when player enters a zone, patrol that particular zone, otherwise slowly meander towards the player random directions to make slower
+patrol randomly go between points
+each patrol point only has a few options to go
+if enters sightline of player, make noise shine light and move towards
+slower than player
+if catches player play jumpscare and restart at last check point (when caught something pivotal)
+
+=== building fishing rod ===
+when all three items together, click to build fishing rod
+click fishing rod to equip it
+make normal fishing rod an item by default
+lure item model & find it in special area
+special area with fallen star particles
+
+=== make win con ===
+fish under the island, if requirements uflfilled win
+have big fish shape under teh water
+
+=== crates ===
+make crates spawn next to a player when they are facing away after they get the item they need
+
+=== end cutscene ===
+fish grabs on then pulls player towards wall, they black out
+black text -> its so bright
+daytime fishing boat, looks around and sees city in distancfe
+
+game over
