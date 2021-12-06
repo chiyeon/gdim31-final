@@ -24,4 +24,8 @@ public class Menu : MonoBehaviour
         MenuButtons.SetActive(false);
         AboutPage.SetActive(true);
     }
+
+    public void Play() {
+        Global.instance.PlayTextScene("Its a great day to go fishing.", 3, 2);
+    }
 }

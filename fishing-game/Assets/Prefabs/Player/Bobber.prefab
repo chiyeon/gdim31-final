@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 915332750}
   m_Layer: 0
   m_Name: Bobber
-  m_TagString: Untagged
+  m_TagString: Bobber
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,11 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58bad2b3613f3645840903ff4a34692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 512
   pullSpeed: 3
-  pulling: 0
+  minWaitTime: 2
+  maxWaitTime: 6
   waterHeight: 87
   bobberCatchPosition: {x: 0, y: -0.5, z: 0}
   baseBobRate: 7

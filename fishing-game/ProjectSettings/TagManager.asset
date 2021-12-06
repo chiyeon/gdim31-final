@@ -10,6 +10,7 @@ TagManager:
   - Ripple
   - Crate
   - Zone
+  - CatchCounter
   layers:
   - Default
   - TransparentFX

@@ -28,6 +28,7 @@ public class FishingController : MonoBehaviour
     [SerializeField] private List<GameObject> fishModels;   // all possible fishie models
     [SerializeField] private List<GameObject> itemModels;   // all possible item models
     [SerializeField] private List<Item> items;              // all possible items to give;
+    [SerializeField] private bool isTutorial = false;
 
     [Header("Pulling Stuff")]                       // used to determine whether or not line will break when pulling
     [SerializeField] private float pullDecreaseAmount = 0.35f;
@@ -188,11 +189,17 @@ public class FishingController : MonoBehaviour
 
         if(caught) {
 
+            if(isTutorial) {
+                animator.SetTrigger("Fish");
+                StartCoroutine(TutorialIncrement());
+                return;
+            }
+
             // determine what kind of catch it is
             float det = Random.Range(0f, 1f);
 
             // debug p7urposes, turn catch coutner < 6!
-            if(catchCounter < 0) {
+            if(catchCounter < 6) {
                 catchCounter++;
             } else {
                 det = 1;    // catch item!
@@ -259,6 +266,13 @@ public class FishingController : MonoBehaviour
     public void DestroyFishInstance() {
         if(fishModelInstance)
             Destroy(fishModelInstance);
+    }
+
+    IEnumerator TutorialIncrement() {
+        yield return new WaitForSeconds(7.5f);
+        if(isTutorial) {
+            GameObject.FindGameObjectWithTag("CatchCounter").GetComponent<TriggerNumberOfCatches>().IncreaseCatch();
+        }
     }
 
     public void CreateItemInstance() {

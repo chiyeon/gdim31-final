@@ -8,6 +8,8 @@ public class Global : MonoBehaviour
     public static Global instance;
     private bool paused = false;
 
+    [SerializeField] private int TextScene = 1;
+
     void Awake() {
         if(instance == null) {
             DontDestroyOnLoad(this);
@@ -31,5 +33,16 @@ public class Global : MonoBehaviour
 
     public void LoadScene(int sceneID) {
         SceneManager.LoadScene(sceneID);
+    }
+
+    public void PlayTextScene(string _text, float _duration, int _nextScene) {
+        StartCoroutine(IPlayTextScene(_text, _duration, _nextScene));
+    }
+
+    IEnumerator IPlayTextScene(string _text, float _duration, int _nextScene) {
+        LoadScene(TextScene);
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        StoryTextScript.instance.ShowText(_text, _duration, _nextScene);
     }
 }
