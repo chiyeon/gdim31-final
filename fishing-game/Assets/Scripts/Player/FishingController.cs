@@ -27,8 +27,10 @@ public class FishingController : MonoBehaviour
     private GameObject fishModelInstance;           // fish mode for catch animation
     [SerializeField] private List<GameObject> fishModels;   // all possible fishie models
     [SerializeField] private List<GameObject> itemModels;   // all possible item models
+    [SerializeField] private List<GameObject> crates;       // spawns after we catch
     [SerializeField] private List<Item> items;              // all possible items to give;
     [SerializeField] private bool isTutorial = false;
+    private int currentCrate = 0;
 
     [Header("Pulling Stuff")]                       // used to determine whether or not line will break when pulling
     [SerializeField] private float pullDecreaseAmount = 0.35f;
@@ -199,7 +201,7 @@ public class FishingController : MonoBehaviour
             float det = Random.Range(0f, 1f);
 
             // debug p7urposes, turn catch coutner < 6!
-            if(catchCounter < 6) {
+            if(catchCounter < 0) {
                 catchCounter++;
             } else {
                 det = 1;    // catch item!
@@ -219,9 +221,13 @@ public class FishingController : MonoBehaviour
                     InventoryManager.instance.AddItem(items[controller.GetZone()-1]);       //add item
                     catchCounter = 0;                       // reset catch counter
                     controller.DisableCurrentZoneObject();  // disable zone so we cant repeat
+                    if(currentCrate < crates.Count) {
+                        Instantiate(crates[currentCrate], BoatController.instance.GetCrateSpawnPosition().position, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));     // create next crate
+                        currentCrate++;
+                    }
                     // player zone is still set at this point. we must reset it AFTER the model isntance is created
                 } else {
-                    animator.SetTrigger("Jumpscare");
+                    animator.SetTrigger("Fish");
                 }
             }
         } // otherwise do nothing because no catch !

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BoatController : MonoBehaviour
 {
+    public static BoatController instance;
+
     [Header("Boat Movement")]
     // boat movement
     [SerializeField] private float acceleration = 0.5f;         // rate at which speed inc
@@ -25,7 +27,11 @@ public class BoatController : MonoBehaviour
     private CharacterController controller;
     [SerializeField] private Transform engine;
     [SerializeField] private Transform boatModel;
+    [SerializeField] private Transform crateSpawnPosition;
 
+    void Awake() {
+        instance = this;
+    }
 
     void Start() {
         controller = GetComponent<CharacterController>();
@@ -81,5 +87,9 @@ public class BoatController : MonoBehaviour
         isNavigating = _isNavigating;                                       // change bool
         PlayerController.instance.SetNavigating(isNavigating, playerNavPosition);        // alert player class
 
+    }
+
+    public Transform GetCrateSpawnPosition() {
+        return crateSpawnPosition;
     }
 }
