@@ -6,10 +6,16 @@ using UnityEngine;
 public class LookAtTarget : MonoBehaviour
 {
     public Transform target;
+    public string targetTag;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(targetTag != null) {
+            if(targetTag != "") {
+                target = GameObject.FindGameObjectWithTag(targetTag).transform;
+            }
+        }
+
     }
 
     // Update is called once per frame

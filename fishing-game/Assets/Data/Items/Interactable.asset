@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a001c25211c662b4f9dadda7e195b3ef, type: 3}
+  m_Name: Interactable
+  m_EditorClassIdentifier: 
+  name: Guide
+  description: Click to Read
+  icon: {fileID: 21300000, guid: 4d2616018f59ce14a8eb83f3bfcfc9a0, type: 3}
+  interactable: 1
+  note: 'Hello!
+
+
+    Interactable items have a white outline. Click to use them!
+
+
+    Hold
+    left click to begin charging a swing. The longer the farther it goes! Land it
+    inside ripples to start fishing.
+
+
+    Once the bobber dips below the water,
+    hold left click to pull it back to you.
+
+    If you hold left click too long,
+    the rod will begin to shake and the line will snap, so stay in control!
+
+
+    Keep
+    an eye out for crates to grab and get items. Always look around.'

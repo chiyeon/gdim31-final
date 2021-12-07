@@ -13,7 +13,7 @@ public class BoatController : MonoBehaviour
     [SerializeField] private float maxBackwardSpeed = 2.0f;
     private float speed = 0;
     [SerializeField] private float rotationSpeed = 15.0f;
-    private bool isNavigating = false;
+    [SerializeField] private bool isNavigating = false;
 
     [Header("Player Search")]       // determine whether player is close enough to interact
     [SerializeField] private Transform playerSearch;

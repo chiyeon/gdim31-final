@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutorial_dusk.unity
     guid: 14a71df70c029774fa9d5d249d258994
   - enabled: 1
+    path: Assets/Scenes/BoatScene.unity
+    guid: 90dd8f6d8f10ffc4b89e2bf198795af8
+  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

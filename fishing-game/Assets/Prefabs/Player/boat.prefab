@@ -712,6 +712,7 @@ MonoBehaviour:
   maxForwardSpeed: 7
   maxBackwardSpeed: 3
   rotationSpeed: 20
+  isNavigating: 0
   playerSearch: {fileID: 1764974326}
   playerSearchRadius: 5
   playerLayer:
@@ -750,7 +751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84ada65a27602346b4bfe114445ea06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRipples: 7
+  maxRipples: 5
   maxRadius: 25
   waterLevel: 87
   Ripple: {fileID: 5543411670418030413, guid: 60d7d3724ec9f60478a5dfafdfc5b12c, type: 3}

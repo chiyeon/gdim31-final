@@ -6,6 +6,7 @@ public class EventSetActive : Event
 {
     [SerializeField] private GameObject target;
     [SerializeField] private bool activeSelf;
+    
 
     public override void OnEvent() {
         target.SetActive(activeSelf);

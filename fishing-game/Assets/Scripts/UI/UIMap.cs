@@ -25,7 +25,8 @@ public class UIMap : MonoBehaviour
         if(Input.GetButtonDown("Map")) OpenMap();
         if(Input.GetButtonUp("Map")) CloseMap();
 
-        PlayerDot.localPosition = new Vector2(player.position.x * 1.05f, player.position.z * 0.95f);
+        if(player)
+            PlayerDot.localPosition = new Vector2(player.position.x * 1.05f, player.position.z * 0.95f);
     }
 
     public void OpenMap() {
