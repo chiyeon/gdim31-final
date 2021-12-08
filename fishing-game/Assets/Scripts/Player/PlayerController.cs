@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour
         currentZoneObject = _currentZoneObject;
         FishingController.instance.ResetCatchCounter();
 
-        if(_zoneID == 0) {
+        if(_zoneID == 0 || _zoneID == 5) {
             BoatController.instance.GetComponent<RippleManager>().enabled = false;
         } else {
             BoatController.instance.GetComponent<RippleManager>().enabled = true;

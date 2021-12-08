@@ -46,6 +46,9 @@ public class FishingController : MonoBehaviour
     [SerializeField] private Collider finishFishingRadius;
     [SerializeField] private Transform CaughtObject;
     [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] private Mesh CursedRodMesh;
+    [SerializeField] private Mesh CursedSpinningThing;
+    private InventoryManager inventoryManager;
     private Animator animator;
     private PlayerController controller;
     private Coroutine swingAnimationCoroutine;
@@ -59,6 +62,7 @@ public class FishingController : MonoBehaviour
     void Start() {
         controller = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
+        inventoryManager = InventoryManager.instance;
 
         finishFishingRadius.enabled = false;
         lineRenderer.enabled = false;
@@ -73,6 +77,9 @@ public class FishingController : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Alpha3)) {
             InventoryManager.instance.AddItem(items[2]);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha4)) {
+            InventoryManager.instance.AddItem(items[3]);
         }
 
         // render fishing line when necessary
@@ -128,6 +135,12 @@ public class FishingController : MonoBehaviour
                 } else {
                     // pulling
                     if(Input.GetButton("Fire1")) {
+                        if(inventoryManager.GetHasCursedBait() && inventoryManager.GetHasCursedRod() && controller.GetZone() == 5) {
+                            // end of the game
+                            // play animatin oyou win
+                            Debug.Log("You win");
+                        }
+
                         // make bobber move towards player
                         bobberInstance.SetPulling(true);
                         // make fishing rod move up to its reeling angle
@@ -209,6 +222,8 @@ public class FishingController : MonoBehaviour
 
             // determine what kind of catch it is
             float det = Random.Range(0f, 1f);
+            if(controller.GetZone() == 4 || controller.GetZone() == 5)      // garenteed correct catch for final stages
+                det = 1;
 
             // debug p7urposes, turn catch coutner < 6!
             if(catchCounter < 6) {
@@ -229,8 +244,15 @@ public class FishingController : MonoBehaviour
                 // make sure we are in a valid zone to recieve item first.
                 // if not, just play jumpscare hehe
                 if(controller.GetZone() != 0) {
+                    if(controller.GetZone() == 4) {     // cursed bait zone
+                        if(!InventoryManager.instance.GetHasCursedRod()) {   // if we dont have the rod yet, nope us out
+                            animator.SetTrigger(Random.Range(0f, 1f) > 0.3f ? "Fish" : "Jumpscare");
+                            return;
+                        }
+                    }
+
+                    // any other normal zone
                     animator.SetTrigger("Item");            // play anim
-                    Debug.Log(controller.GetZone()-1);
                     InventoryManager.instance.AddItem(items[controller.GetZone()-1]);       //add item
                     catchCounter = 0;                       // reset catch counter
                     controller.DisableCurrentZoneObject();  // disable zone so we cant repeat
@@ -310,5 +332,19 @@ public class FishingController : MonoBehaviour
 
     public void ResetCatchCounter() {
         catchCounter = 0;
+    }
+
+    public void EquipCursedRod() {
+        UIInventory.instance.CloseInventory();
+        StartCoroutine(EquipCursedRodCoroutine());
+    }
+
+    IEnumerator EquipCursedRodCoroutine() {
+        animator.SetBool("isNavigating", true);
+        yield return new WaitForSeconds(0.5f);
+        //FishingRod.GetComponentInChildren<MeshRenderer>().enabled = false;
+        FishingRod.GetComponent<MeshFilter>().mesh = CursedRodMesh;
+        spinningThing.GetComponent<MeshFilter>().mesh = CursedSpinningThing;
+        animator.SetBool("isNavigating", false);
     }
 }

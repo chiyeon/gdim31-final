@@ -10,6 +10,8 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private List<Item> items;
     [SerializeField] private List<Item> pages;
     private int numComponents = 0;
+    private bool hasCursedRod = false;
+    private bool hasCursedBait = false;
 
     void Awake() {
         instance = this;
@@ -27,6 +29,9 @@ public class InventoryManager : MonoBehaviour
                 UIInventory.instance.AddItem(item, false);
             }
             return;
+        } else if (item is CursedRod) {
+            hasCursedRod = true;
+            Debug.Log("HAVE CURSED ROD");
         }
         UIInventory.instance.AddItem(item, item.IsInteractable());
     }
@@ -41,6 +46,18 @@ public class InventoryManager : MonoBehaviour
             items.Remove(item);
             UIInventory.instance.RemoveItem(item);
         }
+    }
+
+    public bool GetHasCursedRod() {
+        return hasCursedRod;
+    }
+
+    public bool GetHasCursedBait() {
+        return hasCursedBait;
+    }
+
+    public void SetHasCursedBait(bool _hasCursedBait) {
+        hasCursedBait = _hasCursedBait;
     }
  
 }

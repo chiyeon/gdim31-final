@@ -6,6 +6,6 @@ using UnityEngine;
 public class CursedRod : InteractableItem
 {
     public override void Interact() {
-        // equip cursed rod
+        FishingController.instance.EquipCursedRod();
     }
 }
