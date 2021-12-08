@@ -1032,7 +1032,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2cef49bc4a1c7bc428929d239f8b34a4, type: 2}
   - {fileID: 11400000, guid: fae14261239b0a74e9f9e9b0b7b569ee, type: 2}
   isTutorial: 0
-  pullDecreaseAmount: 0.65
+  pullDecreaseAmount: 0.8
   pullIncreaseAmount: 0.35
   pullTimer: 0
   bobberRelease: {fileID: 271221060}

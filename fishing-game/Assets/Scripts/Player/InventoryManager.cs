@@ -29,9 +29,6 @@ public class InventoryManager : MonoBehaviour
                 UIInventory.instance.AddItem(item, false);
             }
             return;
-        } else if (item is CursedRod) {
-            hasCursedRod = true;
-            Debug.Log("HAVE CURSED ROD");
         }
         UIInventory.instance.AddItem(item, item.IsInteractable());
     }
@@ -58,6 +55,10 @@ public class InventoryManager : MonoBehaviour
 
     public void SetHasCursedBait(bool _hasCursedBait) {
         hasCursedBait = _hasCursedBait;
+    }
+
+    public void SetHasCursedRod(bool _hasCursedRod) {
+        hasCursedRod = _hasCursedRod;
     }
  
 }

@@ -633,10 +633,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349aa0235082e454ca2afac220f68fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 0.5
-  maxForwardSpeed: 7
+  acceleration: 1
+  maxForwardSpeed: 10
   maxBackwardSpeed: 3
-  rotationSpeed: 20
+  rotationSpeed: 25
   isNavigating: 0
   waterHeight: 87
   playerSearch: {fileID: 1764974326}

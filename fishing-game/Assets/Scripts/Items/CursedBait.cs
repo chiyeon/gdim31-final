@@ -6,7 +6,11 @@ using UnityEngine;
 public class CursedBait : InteractableItem
 {
     public override void Interact() {
-        InventoryManager.instance.SetHasCursedBait(true);
-        InventoryManager.instance.RemoveItem(this);
+        if(InventoryManager.instance.GetHasCursedRod()) {
+            InventoryManager.instance.SetHasCursedBait(true);
+            InventoryManager.instance.RemoveItem(this);
+        } else {
+            // alert player
+        }
     }
 }

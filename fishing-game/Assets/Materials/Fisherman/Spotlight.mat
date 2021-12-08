@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water
+  m_Name: Spotlight
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHABLEND_ON
-  m_LightmapFlags: 4
+  m_ShaderKeywords: _ALPHABLEND_ON _EMISSION
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2999
@@ -38,11 +38,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 150, y: 150}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: cb60b745a17020b42aa9d66c14d405f0, type: 3}
-        m_Scale: {x: 150, y: 150}
+        m_Texture: {fileID: 2800000, guid: 843e3802d2c5fcc4ba8c97d069e367b3, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -74,6 +74,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.6363475, g: 0.9433962, b: 0.9084476, a: 0.9372549}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.95191723, b: 0.6273585, a: 0.4627451}
+    - _EmissionColor: {r: 0.509434, g: 0.43566504, b: 0.29076186, a: 1}
   m_BuildTextureStacks: []

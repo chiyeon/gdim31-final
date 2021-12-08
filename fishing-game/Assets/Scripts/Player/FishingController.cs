@@ -236,11 +236,11 @@ public class FishingController : MonoBehaviour
                 det = 1;
 
             // start animation, then rest handled by animation events
-            if(det <= 0.30f) {                          // 30% chance jumpscare
+            if(det <= 0.35f) {                          // 35% chance jumpscare
                 animator.SetTrigger("Jumpscare");
-            } else if(det <= 0.80) {                    // 50% chance fish
+            } else if(det <= 0.85) {                    // 50% chance fish
                 animator.SetTrigger("Fish");
-            } else {                                    // 20% chance item
+            } else {                                    // 15% chance item
                 // make sure we are in a valid zone to recieve item first.
                 // if not, just play jumpscare hehe
                 if(controller.GetZone() != 0) {
@@ -323,6 +323,7 @@ public class FishingController : MonoBehaviour
 
     public void JumpScare() {
         CameraShake.instance.Shake(0.35f, 0.05f);
+        Fisherman.instance.SetPlayer();
         CutLine();
     }
 

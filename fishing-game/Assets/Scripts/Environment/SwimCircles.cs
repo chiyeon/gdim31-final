@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SwimCircles : MonoBehaviour
 {
-    private bool spawnedRipple = false;
     [SerializeField] private Transform fish;
     [SerializeField] private GameObject Ripple;
     private GameObject rippleInstance;
