@@ -7,6 +7,8 @@ public class CrateController : MonoBehaviour
 
     [Header("References")]
     private Trigger trigger;
+    [SerializeField] private Transform ChestModel;
+    [SerializeField] private Transform ChestPosition;
     // serialized reference to crate model
 
     void Start() {
@@ -14,7 +16,7 @@ public class CrateController : MonoBehaviour
     }
 
     void Update() {
-        // make crate bob up and down
+        ChestModel.position = Vector3.Lerp(ChestModel.position, ChestPosition.position, Time.deltaTime * 2);
     }
 
     public void Open() {

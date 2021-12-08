@@ -201,11 +201,14 @@ public class FishingController : MonoBehaviour
             float det = Random.Range(0f, 1f);
 
             // debug p7urposes, turn catch coutner < 6!
-            if(catchCounter < 0) {
+            if(catchCounter < 6) {
                 catchCounter++;
             } else {
                 det = 1;    // catch item!
             }
+
+            if(Input.GetKey(KeyCode.R))
+                det = 1;
 
             // start animation, then rest handled by animation events
             if(det <= 0.30f) {                          // 30% chance jumpscare

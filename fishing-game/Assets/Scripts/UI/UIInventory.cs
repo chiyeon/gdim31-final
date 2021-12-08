@@ -29,7 +29,7 @@ public class UIInventory : MonoBehaviour
     }
 
     void Update() {
-        if(Input.GetButtonDown("Inventory")) OpenInventory();
+        if(Input.GetButtonDown("Inventory") && !PlayerController.instance.GetDisableControls()) OpenInventory();
         if(Input.GetButtonUp("Inventory")) CloseInventory();
 
         if(ItemInstance.GetMouseOverItem() != null) {

@@ -22,7 +22,7 @@ public class UIMap : MonoBehaviour
     }
 
     void Update() {
-        if(Input.GetButtonDown("Map")) OpenMap();
+        if(Input.GetButtonDown("Map") && !PlayerController.instance.GetDisableControls()) OpenMap();
         if(Input.GetButtonUp("Map")) CloseMap();
 
         if(player)

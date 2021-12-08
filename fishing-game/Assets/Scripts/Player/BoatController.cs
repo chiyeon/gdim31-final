@@ -14,6 +14,7 @@ public class BoatController : MonoBehaviour
     private float speed = 0;
     [SerializeField] private float rotationSpeed = 15.0f;
     [SerializeField] private bool isNavigating = false;
+    [SerializeField] private float waterHeight = 87f;       // keep boat on this y axis
 
     [Header("Player Search")]       // determine whether player is close enough to interact
     [SerializeField] private Transform playerSearch;
@@ -27,7 +28,8 @@ public class BoatController : MonoBehaviour
     private CharacterController controller;
     [SerializeField] private Transform engine;
     [SerializeField] private Transform boatModel;
-    [SerializeField] private Transform crateSpawnPosition;
+    [SerializeField] private Transform[] crateSpawnPositions;
+    [SerializeField] private LayerMask TerrainMask; 
 
     void Awake() {
         instance = this;
@@ -80,6 +82,7 @@ public class BoatController : MonoBehaviour
 
         // move according to correct speed
         controller.Move(transform.forward * speed * Time.deltaTime);
+        transform.position = new Vector3(transform.position.x, waterHeight, transform.position.z);
     }
 
     // enalbed / disables navigating
@@ -90,6 +93,12 @@ public class BoatController : MonoBehaviour
     }
 
     public Transform GetCrateSpawnPosition() {
-        return crateSpawnPosition;
+        for(int i = 0; i < crateSpawnPositions.Length; i++) {
+            if(!Physics.CheckSphere(crateSpawnPositions[i].position, 3, TerrainMask)) {
+                return crateSpawnPositions[i];
+            }
+        }
+        Debug.Log("uh oh spagehtti oh!");
+        return crateSpawnPositions[0];
     }
 }

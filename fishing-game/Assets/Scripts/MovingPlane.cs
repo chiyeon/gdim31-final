@@ -20,7 +20,7 @@ public class MovingPlane : MonoBehaviour
                 currentModel++;
             }
 
-            if(water.transform.localPosition.x <= -150) {
+            if(water.transform.localPosition.x <= -125) {
                 water.transform.localPosition = new Vector3(water.transform.localPosition.x+300, 0, 0);
                 Destroy(water.transform.GetChild(0).transform.GetChild(0).gameObject);     // delete current model
                 spawnNext = true;

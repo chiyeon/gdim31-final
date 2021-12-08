@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 1401438574}
   - component: {fileID: 1401438577}
   - component: {fileID: 62228419}
+  - component: {fileID: 128048231254021373}
   m_Layer: 0
   m_Name: Main Camera (1)
   m_TagString: MainCamera
@@ -298,6 +299,22 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!114 &62228419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401438573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
+--- !u!114 &128048231254021373
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -431,7 +448,7 @@ RectTransform:
   - {fileID: 1443136274}
   - {fileID: 2023076990}
   m_Father: {fileID: 5007346494871894011}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -499,50 +516,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1 &1651369933
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1651369934}
-  - component: {fileID: 1651369935}
-  m_Layer: 8
-  m_Name: FishingFinishRadius
-  m_TagString: FinishFishing
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1651369934
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1651369933}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5007346494871894011}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1651369935
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1651369933}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2023076989
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,7 +663,7 @@ Transform:
   m_Children:
   - {fileID: 482559370}
   m_Father: {fileID: 5007346494871894011}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 120, z: 0}
 --- !u!114 &5007346493160303627
 MonoBehaviour:
@@ -720,6 +693,7 @@ GameObject:
   - component: {fileID: 650113064}
   - component: {fileID: 364935533}
   - component: {fileID: 2110274792}
+  - component: {fileID: 5321923946646616356}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -881,6 +855,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &5321923946646616356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007346494122426745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &5007346494469396894
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +916,7 @@ GameObject:
   - component: {fileID: 197555353}
   - component: {fileID: 804141489}
   - component: {fileID: 503867469}
+  - component: {fileID: 6576504308665602308}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -946,7 +937,6 @@ Transform:
   m_Children:
   - {fileID: 5007346494469396895}
   - {fileID: 88830791178941236}
-  - {fileID: 1651369934}
   - {fileID: 1447721451}
   - {fileID: 7859338338265591552}
   m_Father: {fileID: 0}
@@ -1032,11 +1022,16 @@ MonoBehaviour:
   - {fileID: 1713813415974035333, guid: 87ea43144443e414c89d4339038e7cea, type: 3}
   - {fileID: 6641881226512519772, guid: 6f61cff8eec19884abc4adc2a3c5a1e0, type: 3}
   - {fileID: 0}
+  crates:
+  - {fileID: 2945157880833826386, guid: 92614f89b053069469a386bd73071368, type: 3}
+  - {fileID: 474883792194322148, guid: 29c53d2d5ba0ee04a9cbb7e418288349, type: 3}
+  - {fileID: 3510914394126037474, guid: fd36b750aad491843ad110aac96d4298, type: 3}
   items:
   - {fileID: 11400000, guid: da89ae4e0f0f9064094939b128e82019, type: 2}
   - {fileID: 11400000, guid: 44e746392078fd5469077192cf2a67c3, type: 2}
   - {fileID: 11400000, guid: 6122ecd92820266489d2ec453ddf1df6, type: 2}
   - {fileID: 0}
+  isTutorial: 0
   pullDecreaseAmount: 0.65
   pullIncreaseAmount: 0.35
   pullTimer: 0
@@ -1044,7 +1039,7 @@ MonoBehaviour:
   Bobber: {fileID: 9072189429310612645, guid: e3243a8b06d61e54e9cb4eaf5739a822, type: 3}
   FishingRod: {fileID: 5313335836418343702}
   spinningThing: {fileID: 7201086640694083878}
-  finishFishingRadius: {fileID: 1651369935}
+  finishFishingRadius: {fileID: 0}
   CaughtObject: {fileID: 415246043}
   lineRenderer: {fileID: 1058687496}
 --- !u!95 &804141489
@@ -1067,6 +1062,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &503867469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007346494871894009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce2d7ca98b15b147aca491fa08373e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+  pages: []
+--- !u!114 &6576504308665602308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
