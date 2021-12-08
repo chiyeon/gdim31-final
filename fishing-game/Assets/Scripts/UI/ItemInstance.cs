@@ -13,10 +13,10 @@ public class ItemInstance : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] private Image icon;
     [SerializeField] private Image interactableHint;
 
-    public void Set(Item _item) {
+    public void Set(Item _item, bool IsInteractable) {
         item = _item;
         icon.sprite = _item.GetIcon();
-        if(item.IsInteractable()) {
+        if(IsInteractable) {
             interactableHint.gameObject.SetActive(true);
             GetComponent<Button>().enabled = true;
         } else {
@@ -45,5 +45,9 @@ public class ItemInstance : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if(item is InteractableItem) {
             ((InteractableItem)item).Interact();
         }
+    }
+
+    public Item GetItem() {
+        return item;
     }
 }

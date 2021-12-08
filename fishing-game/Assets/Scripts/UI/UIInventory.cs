@@ -57,14 +57,14 @@ public class UIInventory : MonoBehaviour
         ItemInstance.SetMouseOverItem(null);
     }
 
-    public void AddItem(Item item) {
+    public void AddItem(Item item, bool IsInteractable) {
         ItemInstance itemInstance = Instantiate(ItemInstanceObject, itemsParent).GetComponent<ItemInstance>();
-        itemInstance.Set(item);
+        itemInstance.Set(item, IsInteractable);
     }
 
     public void AddPage(Item page) {
         ItemInstance itemInstance = Instantiate(ItemInstanceObject, pagesParent).GetComponent<ItemInstance>();
-        itemInstance.Set(page);
+        itemInstance.Set(page, true);
     }
 
     public void ToggleBookUI() {
@@ -78,5 +78,22 @@ public class UIInventory : MonoBehaviour
 
     public void HideNote() {
         Note.SetActive(false);
+    }
+
+    public void RemoveItem(Item item) {
+        foreach(Transform instance in itemsParent) {
+            if(instance.GetComponent<ItemInstance>().GetItem() == item) {
+                Destroy(instance.gameObject);
+            }
+        }
+    }
+
+    public void UpgradeCursedComponents() {
+        foreach(Transform instance in itemsParent) {
+            ItemInstance itemInstance = instance.GetComponent<ItemInstance>();
+            if(itemInstance.GetItem() is CursedComponent) {
+                itemInstance.Set(itemInstance.GetItem(), true);
+            }
+        }
     }
 }

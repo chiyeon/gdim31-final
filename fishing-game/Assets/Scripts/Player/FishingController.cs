@@ -65,6 +65,16 @@ public class FishingController : MonoBehaviour
     }
 
     void Update() {
+        if(Input.GetKeyDown(KeyCode.Alpha1)) {
+            InventoryManager.instance.AddItem(items[0]);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2)) {
+            InventoryManager.instance.AddItem(items[1]);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha3)) {
+            InventoryManager.instance.AddItem(items[2]);
+        }
+
         // render fishing line when necessary
         if(renderLine) {
             lineRenderer.enabled = true;

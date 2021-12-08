@@ -1027,9 +1027,9 @@ MonoBehaviour:
   - {fileID: 474883792194322148, guid: 29c53d2d5ba0ee04a9cbb7e418288349, type: 3}
   - {fileID: 3510914394126037474, guid: fd36b750aad491843ad110aac96d4298, type: 3}
   items:
-  - {fileID: 11400000, guid: da89ae4e0f0f9064094939b128e82019, type: 2}
-  - {fileID: 11400000, guid: 44e746392078fd5469077192cf2a67c3, type: 2}
-  - {fileID: 11400000, guid: 6122ecd92820266489d2ec453ddf1df6, type: 2}
+  - {fileID: 11400000, guid: c37b84889ba1acd4ebfe16138c732312, type: 2}
+  - {fileID: 11400000, guid: 19430fcdd1d744b4cbe142f7f53cc33f, type: 2}
+  - {fileID: 11400000, guid: 2cef49bc4a1c7bc428929d239f8b34a4, type: 2}
   - {fileID: 0}
   isTutorial: 0
   pullDecreaseAmount: 0.65

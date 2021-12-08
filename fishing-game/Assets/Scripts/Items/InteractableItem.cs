@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InteractableItem : Item
 {
+    
     public virtual void Interact() {
         
     }
