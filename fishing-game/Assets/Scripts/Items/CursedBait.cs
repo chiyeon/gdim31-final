@@ -7,10 +7,11 @@ public class CursedBait : InteractableItem
 {
     public override void Interact() {
         if(InventoryManager.instance.GetHasCursedRod()) {
+            base.Interact();
             InventoryManager.instance.SetHasCursedBait(true);
             InventoryManager.instance.RemoveItem(this);
         } else {
-            // alert player
+            UINotification.instance.ShowNotification("It doesn't fit on your normal fishing rod.", 3);
         }
     }
 }

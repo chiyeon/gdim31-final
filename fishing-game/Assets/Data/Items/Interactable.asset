@@ -16,6 +16,11 @@ MonoBehaviour:
   description: Click to Read
   icon: {fileID: 21300000, guid: 4d2616018f59ce14a8eb83f3bfcfc9a0, type: 3}
   interactable: 1
+  interactSounds:
+  - {fileID: 8300000, guid: f66068be3fabe6c4b9a3adcb0ec4587d, type: 3}
+  - {fileID: 8300000, guid: b4afe875cbbf147408eda83895a761a7, type: 3}
+  - {fileID: 8300000, guid: f70559395fb3a6a48af38beb5f52cc6b, type: 3}
+  randomPitch: 1
   note: 'Hello!
 
 

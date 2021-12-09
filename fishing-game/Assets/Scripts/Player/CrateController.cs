@@ -9,10 +9,14 @@ public class CrateController : MonoBehaviour
     private Trigger trigger;
     [SerializeField] private Transform ChestModel;
     [SerializeField] private Transform ChestPosition;
+    [SerializeField] private AudioClip CrateHitSound;
+    [SerializeField] private AudioClip CrateOpenSound;
+    private AudioSource CrateAudioSource;
     // serialized reference to crate model
 
     void Start() {
         trigger = GetComponent<Trigger>();
+        CrateAudioSource = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -20,7 +24,12 @@ public class CrateController : MonoBehaviour
     }
 
     public void Open() {
+        PlayerController.instance.PlaySoundRandPitch(CrateOpenSound);
         trigger.OnTrigger();
         Destroy(gameObject);
+    }
+
+    public void PlayHitSound() {
+        CrateAudioSource.PlayOneShot(CrateHitSound);
     }
 }

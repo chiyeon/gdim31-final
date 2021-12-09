@@ -16,13 +16,22 @@ MonoBehaviour:
   description: Its crumpled
   icon: {fileID: 21300000, guid: 4d2616018f59ce14a8eb83f3bfcfc9a0, type: 3}
   interactable: 1
+  interactSounds:
+  - {fileID: 8300000, guid: f66068be3fabe6c4b9a3adcb0ec4587d, type: 3}
+  - {fileID: 8300000, guid: b4afe875cbbf147408eda83895a761a7, type: 3}
+  - {fileID: 8300000, guid: f70559395fb3a6a48af38beb5f52cc6b, type: 3}
+  randomPitch: 1
   note: 'Day 4
 
 
-    I''ve returned to the main island and found the magestic beast''s
-    realm. How it hid away from me for so long fascinates me. In any case, it did
-    not bite.
+    I believe the next step is to use all three of these components
+    combined to hook the magnificent beast hidden below the large glaring moon. This
+    is surely the way out.
 
 
-    Even with all three components, it merely swam uninterested below
-    me. I fear I may never leave this place. What am I missing?'
+    But even as I tried, nothing came of it. It merely
+    swims below me, uninterested. I fear I may never leave this place.
+
+
+    <i>fallen
+    star?</i>'

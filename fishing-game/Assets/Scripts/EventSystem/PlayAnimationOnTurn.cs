@@ -7,6 +7,7 @@ public class PlayAnimationOnTurn : MonoBehaviour
     [SerializeField] private Transform cam;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject fisherman;
+    [SerializeField] private AudioClip JumpscareSound;
     bool animate = false;
 
     void Update() {
@@ -29,6 +30,7 @@ public class PlayAnimationOnTurn : MonoBehaviour
     }
 
     public void Shake() {
+        GetComponent<AudioSource>().PlayOneShot(JumpscareSound);
         CameraShake.instance.Shake(0.2f, 0.03f);
     }
 

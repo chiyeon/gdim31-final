@@ -15,6 +15,7 @@ public class UIInventory : MonoBehaviour
     [SerializeField] private GameObject InventoryPanel;
     [SerializeField] private GameObject BookPanel;
     [SerializeField] private GameObject Note;
+    [SerializeField] private AudioClip[] OpenInventorySounds;
 
     void Awake() {
         instance = this;
@@ -42,6 +43,7 @@ public class UIInventory : MonoBehaviour
     }
 
     public void OpenInventory() {
+        PlayerController.instance.PlaySoundRandPitch(OpenInventorySounds[Random.Range(0, OpenInventorySounds.Length)]);
         InventoryPanel.SetActive(true);           // open panel
         Global.instance.SetFPSMouse(false);        // remove mouse lock
         PlayerController.instance.SetDisableControls(true);      // freeze player
@@ -69,6 +71,10 @@ public class UIInventory : MonoBehaviour
 
     public void ToggleBookUI() {
         BookPanel.SetActive(!BookPanel.activeSelf);
+    }
+
+    public bool BookPanelActive() {
+        return BookPanel.activeSelf;
     }
 
     public void ShowNote(string _note) {

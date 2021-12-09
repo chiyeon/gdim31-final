@@ -16,3 +16,10 @@ MonoBehaviour:
   description: Its missing pages
   icon: {fileID: 21300000, guid: 0f91af8abfeae294489c1ad872add3b5, type: 3}
   interactable: 1
+  interactSounds:
+  - {fileID: 8300000, guid: 6db179b13d9dae34ab21c8b10d66b1e1, type: 3}
+  randomPitch: 1
+  ClosingSounds:
+  - {fileID: 8300000, guid: 3dd50df7a5b3eb64188ac4f325121ce8, type: 3}
+  - {fileID: 8300000, guid: a7838271bd841ac4495ef3f102402e1d, type: 3}
+  - {fileID: 8300000, guid: 3e7f04288957aca468ebe2858a67cdfa, type: 3}

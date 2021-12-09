@@ -38,6 +38,11 @@ public class FishingController : MonoBehaviour
     [SerializeField] private float pullTimer = 0;
     private int fishInstance = -1;       // make sure we dont get the same fish over and over !
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip JumpscareSound;
+    [SerializeField] private AudioClip DropSound;
+    [SerializeField] private AudioClip ReleaseSound;
+
     [Header("References")]
     [SerializeField] private Transform bobberRelease;
     [SerializeField] private GameObject Bobber;
@@ -48,6 +53,7 @@ public class FishingController : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private Mesh CursedRodMesh;
     [SerializeField] private Mesh CursedSpinningThing;
+    [SerializeField] private AudioSource FishingAudioSource;
     private InventoryManager inventoryManager;
     private Animator animator;
     private PlayerController controller;
@@ -200,6 +206,7 @@ public class FishingController : MonoBehaviour
         fishingPower = 0;
         if(bobberInstance) {
             bobberInstance.Remove();
+            PlaySoundRandPitch(ReleaseSound);
             bobberInstance = null;
         }
         CutLine();
@@ -228,12 +235,20 @@ public class FishingController : MonoBehaviour
             // debug p7urposes, turn catch coutner < 6!
             if(catchCounter < 6) {
                 catchCounter++;
+                // make sure we will never catch on first try
+                if(catchCounter == 1) {
+                    while(det > 0.85) {
+                        det = Random.Range(0f, 1f); 
+                    }
+                }
             } else {
                 det = 1;    // catch item!
             }
 
             if(Input.GetKey(KeyCode.R))
                 det = 1;
+            else if(Input.GetKey(KeyCode.T))
+                det = 0.15f;
 
             // start animation, then rest handled by animation events
             if(det <= 0.35f) {                          // 35% chance jumpscare
@@ -271,6 +286,17 @@ public class FishingController : MonoBehaviour
     // run when bobber lands on valid water and sticks
     public void BobberLanded() {
         finishFishingRadius.enabled = true;
+        PlaySoundRandPitch(DropSound);
+    }
+
+    public void PlaySound(AudioClip clip) {
+        FishingAudioSource.pitch = 1;
+        FishingAudioSource.PlayOneShot(clip);
+    }
+
+    public void PlaySoundRandPitch(AudioClip clip) {
+        FishingAudioSource.pitch = Random.Range(0.75f, 1.25f);
+        FishingAudioSource.PlayOneShot(clip);
     }
 
     // === CALLED DURING ANIMATION EVENTS ===
@@ -322,8 +348,9 @@ public class FishingController : MonoBehaviour
     }
 
     public void JumpScare() {
+        PlaySound(JumpscareSound);
         CameraShake.instance.Shake(0.35f, 0.05f);
-        Fisherman.instance.SetPlayer();
+        Fisherman.instance.SetPlayer(true);     // make it run towards teh location of the player
         CutLine();
     }
 

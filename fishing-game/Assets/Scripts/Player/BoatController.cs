@@ -72,7 +72,7 @@ public class BoatController : MonoBehaviour
             float rotationStrength = Mathf.Clamp(speed/3, 0, 1);
             transform.Rotate(transform.up * dir.x * Time.deltaTime * rotationSpeed * rotationStrength);
             // procedurally rotate the engine (no need to base on strength)
-            engine.localRotation = Quaternion.Lerp(engine.localRotation, Quaternion.Euler(new Vector3(0, dir.x * 35, 0)), Time.deltaTime);
+            engine.localRotation = Quaternion.Lerp(engine.localRotation, Quaternion.Euler(new Vector3(0, -dir.x * 35, 0)), Time.deltaTime);
         } else {
             // set speed gradually to 0 when player stops navigating
             speed = Mathf.Lerp(speed, 0, Time.deltaTime * 2);

@@ -9,6 +9,7 @@ public class UIMap : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject MapPanel;
     [SerializeField] private RectTransform PlayerDot;
+    [SerializeField] private AudioClip[] OpenMapSounds;
     private Transform player;
 
     void Awake() {
@@ -26,10 +27,11 @@ public class UIMap : MonoBehaviour
         if(Input.GetButtonUp("Map")) CloseMap();
 
         if(player)
-            PlayerDot.localPosition = new Vector2(player.position.x * 1.05f, player.position.z * 0.95f);
+            PlayerDot.localPosition = new Vector2(player.position.x * 0.847f, player.position.z * 0.86f);
     }
 
     public void OpenMap() {
+        PlayerController.instance.PlaySoundRandPitch(OpenMapSounds[Random.Range(0, OpenMapSounds.Length)]);
         MapPanel.SetActive(true);
         Global.instance.SetFPSMouse(false);        // remove mouse lock
         PlayerController.instance.SetDisableControls(true);      // freeze player

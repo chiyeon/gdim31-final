@@ -26,10 +26,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckDistance = 0.3f;
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip SitUp;
+    [SerializeField] private AudioClip SitDown;
+
     [Header("References")]
     [SerializeField] private Transform mainCamera;
     private Rigidbody rb;
     private Animator animator;
+    [SerializeField] private AudioSource PlayerAudioSource;
 
     private Vector3 dir;
     private Vector2 mouseLook;
@@ -43,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        mouseSensitivity = Global.instance.GetMouseSensitivity();
+
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
         animator = GetComponent<Animator>();
@@ -82,6 +89,16 @@ public class PlayerController : MonoBehaviour
         else    // dont allow movement when disabled
             dir = Vector3.zero;
     }
+
+    public void PlaySound(AudioClip clip) {
+        PlayerAudioSource.pitch = 1;
+        PlayerAudioSource.PlayOneShot(clip);
+    }
+
+    public void PlaySoundRandPitch(AudioClip clip) {
+        PlayerAudioSource.pitch = Random.Range(0.75f, 1.25f);
+        PlayerAudioSource.PlayOneShot(clip);
+    }
     
     void FixedUpdate() {
         dir.y = rb.velocity.y;
@@ -102,8 +119,11 @@ public class PlayerController : MonoBehaviour
         if(isNavigating) {
             transform.SetParent(parent);
             FishingController.instance.OnNavigating();
+            PlayerAudioSource.PlayOneShot(SitUp);
         } else {
             transform.SetParent(null);
+            PlayerAudioSource.PlayOneShot(SitDown);
+
         }
     }
 
@@ -123,7 +143,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player zone is now " + _zoneID);
         currentZone = _zoneID;
         currentZoneObject = _currentZoneObject;
-        FishingController.instance.ResetCatchCounter();
 
         if(_zoneID == 0 || _zoneID == 5) {
             BoatController.instance.GetComponent<RippleManager>().enabled = false;
@@ -140,5 +159,9 @@ public class PlayerController : MonoBehaviour
         if(currentZoneObject) {
             currentZoneObject.SetActive(false);
         }
+    }
+
+    public void SetMouseSensitivity(float _mouseSensitivity) {
+        mouseSensitivity = _mouseSensitivity;
     }
 }

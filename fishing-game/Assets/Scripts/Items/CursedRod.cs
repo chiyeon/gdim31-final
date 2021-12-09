@@ -6,6 +6,8 @@ using UnityEngine;
 public class CursedRod : InteractableItem
 {
     public override void Interact() {
+        base.Interact();
+        UINotification.instance.ShowNotification("You equip a Cursed Rod", 3);
         InventoryManager.instance.SetHasCursedRod(true);
         InventoryManager.instance.RemoveItem(this);
         FishingController.instance.EquipCursedRod();

@@ -16,16 +16,19 @@ MonoBehaviour:
   description: Its crumpled
   icon: {fileID: 21300000, guid: 4d2616018f59ce14a8eb83f3bfcfc9a0, type: 3}
   interactable: 1
+  interactSounds:
+  - {fileID: 8300000, guid: f66068be3fabe6c4b9a3adcb0ec4587d, type: 3}
+  - {fileID: 8300000, guid: b4afe875cbbf147408eda83895a761a7, type: 3}
+  - {fileID: 8300000, guid: f70559395fb3a6a48af38beb5f52cc6b, type: 3}
+  randomPitch: 1
   note: 'Day 2
 
 
-    I finally found it, the second component. It was just around
-    the waters of the smaller second island off the main one, right across from the
-    cluster of smaller spike shaped islands.
+    Please take note: I''ve found another special component. The
+    pieces are starting to fit together. It was just around the waters of the smaller
+    triangle shaped island off the main one.
 
 
-    As for life, I seem to have encountered
-    another being out here besides the fish. However I want nothing to do with it,
-    for it seems to be...searching for something. I fear it may be myself, and that
-    I am an unwelcome visitor here. Should it catch me...No, I won''t think about
-    it.'
+    The entity keeps haunting me.
+    It chases when I get close, and I fear for what will happen each time it almost
+    catches me. Hopefully there will be another chest awaiting you ahead.'

@@ -16,3 +16,6 @@ MonoBehaviour:
   description: A bait with a foul odor
   icon: {fileID: 21300000, guid: e71ec9fdb23845a44b230f1d06cb7a34, type: 3}
   interactable: 1
+  interactSounds:
+  - {fileID: 8300000, guid: db850ba3688e4d2459e43e8bad7ac401, type: 3}
+  randomPitch: 0

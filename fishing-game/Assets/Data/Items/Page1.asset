@@ -16,18 +16,24 @@ MonoBehaviour:
   description: Its crumpled
   icon: {fileID: 21300000, guid: 4d2616018f59ce14a8eb83f3bfcfc9a0, type: 3}
   interactable: 1
+  interactSounds:
+  - {fileID: 8300000, guid: f66068be3fabe6c4b9a3adcb0ec4587d, type: 3}
+  - {fileID: 8300000, guid: b4afe875cbbf147408eda83895a761a7, type: 3}
+  - {fileID: 8300000, guid: f70559395fb3a6a48af38beb5f52cc6b, type: 3}
+  randomPitch: 1
   note: 'Day 1
 
 
-    There is no sign of life besides the fish, not any that I can
-    detect immediately in any case.
+    Something is hunting on this strange night. I fear what will
+    happen if it catches me.
 
 
-    I''ll continue to write these and leave
-    them behind in these crates, if by some miracle someone will find them.
+    I''ll continue to lay these chests down in the
+    hopes that someone will find them and piece the parts together.
 
 
-    I
-    believe I''ve found what I need by the spiky rocks, a bit aways from the main
-    island. I somehow managed to snag onto it with my hook. That was not the only
-    thing I brought to the surface however.'
+    Please
+    take note: My fishing rod snagged onto something essential for escaping this
+    place. I found it near the spikey rocks away from the main island. Luckily I
+    had my map to navigate. If I live past this note, there will be another chest
+    there.'

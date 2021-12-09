@@ -27,6 +27,8 @@ public class BobberController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform BobberModel;
+    [SerializeField] private GameObject BobberRipples;
+    [SerializeField] private GameObject BobberImpactParticles;
     private Transform player;
     private Rigidbody rb;
     private Coroutine waitCatchCoroutine;
@@ -83,10 +85,12 @@ public class BobberController : MonoBehaviour
     void Freeze() {
         rb.isKinematic = true;
         FishingController.instance.BobberLanded();
+        Destroy(Instantiate(BobberImpactParticles, transform.position, Quaternion.identity), 1);
     }
 
     public void Catch() {
         caught = true;
+        BobberRipples.SetActive(false);
     }
 
     void OnTriggerEnter(Collider collider) {
@@ -102,6 +106,7 @@ public class BobberController : MonoBehaviour
             waitCatchCoroutine = StartCoroutine(WaitThenCatch(collider.gameObject));
         } else if(collider.gameObject.CompareTag("Crate")) {
             Freeze();
+            collider.gameObject.GetComponent<CrateController>().PlayHitSound();
             crate = collider.transform;
             crate.SetParent(transform);
             // play sound

@@ -16,6 +16,11 @@ MonoBehaviour:
   description: Its crumpled
   icon: {fileID: 21300000, guid: 4d2616018f59ce14a8eb83f3bfcfc9a0, type: 3}
   interactable: 1
+  interactSounds:
+  - {fileID: 8300000, guid: f66068be3fabe6c4b9a3adcb0ec4587d, type: 3}
+  - {fileID: 8300000, guid: b4afe875cbbf147408eda83895a761a7, type: 3}
+  - {fileID: 8300000, guid: f70559395fb3a6a48af38beb5f52cc6b, type: 3}
+  randomPitch: 1
   note: 'Day 3
 
 
@@ -23,11 +28,6 @@ MonoBehaviour:
     to get faster, more vicious. I have only barely managed to outrun it.
 
 
-    The
-    last component was hidden amidst the shallow water in the smaller, clustered
-    islands. This is the last thing I need to escape.
-
-
-    I really thought it would
-    be on the island with the fallen star. But I scoured that area and nothing became
-    of it. '
+    Please
+    take note: The last component was hidden amid the shallow water in the smaller,
+    clustered islands. This is the last thing I need to escape.'

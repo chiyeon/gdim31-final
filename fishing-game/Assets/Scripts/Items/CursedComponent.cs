@@ -8,6 +8,7 @@ public class CursedComponent : InteractableItem
     [SerializeField] private Item completedRod;
     [SerializeField] private Item[] components;
     public override void Interact() {
+        base.Interact();
         for(int i = 0; i < components.Length; i++) {
             InventoryManager.instance.RemoveItem(components[i]);
         }

@@ -31,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8586256307787543467}
+  - {fileID: 4304806307319099737}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,6 +86,79 @@ MonoBehaviour:
   baseBobDistance: 0.25
   pullingBobDistance: 0.8
   BobberModel: {fileID: 8586256307787543467}
+  BobberRipples: {fileID: 4304806307319099740}
+  BobberImpactParticles: {fileID: 8083001187170366971, guid: a7cea7db585bcd4479f13bdd16320fa9, type: 3}
+--- !u!1001 &3694903351483453515
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 9072189429310612665}
+    m_Modifications:
+    - target: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325909, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 647200593568325911, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+      propertyPath: m_Name
+      value: BobberRipple
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+--- !u!1 &4304806307319099740 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 647200593568325911, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+  m_PrefabInstance: {fileID: 3694903351483453515}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4304806307319099737 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 647200593568325906, guid: f88039ab0dca8d648babe2fbd6a7c841, type: 3}
+  m_PrefabInstance: {fileID: 3694903351483453515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8116115327951000640
 PrefabInstance:
   m_ObjectHideFlags: 0

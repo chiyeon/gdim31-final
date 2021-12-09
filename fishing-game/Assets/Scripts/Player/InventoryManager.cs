@@ -9,6 +9,7 @@ public class InventoryManager : MonoBehaviour
     [Header("Inventory")]
     [SerializeField] private List<Item> items;
     [SerializeField] private List<Item> pages;
+    [SerializeField] private AudioSource InventoryAudioSource;
     private int numComponents = 0;
     private bool hasCursedRod = false;
     private bool hasCursedBait = false;
@@ -17,7 +18,18 @@ public class InventoryManager : MonoBehaviour
         instance = this;
     }
 
+    public void PlaySound(AudioClip clip) {
+        InventoryAudioSource.pitch = 1;
+        InventoryAudioSource.PlayOneShot(clip);
+    }
+
+    public void PlaySoundRandPitch(AudioClip clip) {
+        InventoryAudioSource.pitch = Random.Range(0.75f, 1.25f);
+        InventoryAudioSource.PlayOneShot(clip);
+    }
+
     public void AddItem(Item item) {
+        UINotification.instance.ShowNotification("You found " + item.GetName(), 3);
         items.Add(item);
         if(item is CursedComponent) {
             numComponents++;
@@ -34,6 +46,7 @@ public class InventoryManager : MonoBehaviour
     }
 
     public void AddPage(Item page) {
+        UINotification.instance.ShowNotification("You found " + page.GetName(), 3);
         pages.Add(page);
         UIInventory.instance.AddPage(page);
     }

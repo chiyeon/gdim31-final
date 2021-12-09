@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Zone : MonoBehaviour
 {
+    private static int prevZoneID = -1;
     [SerializeField] private int zoneID;
     [SerializeField] private Waypoint startWaypoint;
 
@@ -14,8 +15,11 @@ public class Zone : MonoBehaviour
     public void OnTriggerEnter(Collider collider) {
         if(collider.gameObject.CompareTag("Player")) {
             PlayerController.instance.SetZone(zoneID, gameObject);
-            if(startWaypoint) {
+            
+            if(startWaypoint && prevZoneID != zoneID) {
+                FishingController.instance.ResetCatchCounter();
                 Fisherman.instance.TravelNewWaypoint(startWaypoint);
+                prevZoneID = zoneID;
             }
         }
     }
@@ -24,5 +28,18 @@ public class Zone : MonoBehaviour
         if(collider.gameObject.CompareTag("Player")) {
             PlayerController.instance.SetZone(0, null);
         }
+    }
+
+    public Waypoint GetClosestWaypointToPlayer() {
+        Waypoint closest = null;
+        float closestDistance = 100000;
+        foreach(Transform waypoint in transform) {
+            float dist = Vector3.Distance(waypoint.position, transform.position);
+            if(dist < closestDistance) {
+                closestDistance = dist;
+                closest = waypoint.GetComponent<Waypoint>();
+            }
+        }
+        return closest;
     }
 }

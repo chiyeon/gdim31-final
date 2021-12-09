@@ -6,6 +6,11 @@ public class Menu : MonoBehaviour
 {
     [SerializeField] private GameObject MenuButtons;
     [SerializeField] private GameObject AboutPage;
+    [SerializeField] private GameObject QuitButton;
+
+    void Start() {
+        QuitButton.SetActive(Application.platform != RuntimePlatform.WebGLPlayer);
+    }
 
     public void LoadScene(int sceneID) {
         Global.instance.LoadScene(sceneID);
