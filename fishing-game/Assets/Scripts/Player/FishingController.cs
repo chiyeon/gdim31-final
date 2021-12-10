@@ -75,6 +75,7 @@ public class FishingController : MonoBehaviour
     }
 
     void Update() {
+        /*
         if(Input.GetKeyDown(KeyCode.Alpha1)) {
             InventoryManager.instance.AddItem(items[0]);
         }
@@ -86,7 +87,7 @@ public class FishingController : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Alpha4)) {
             InventoryManager.instance.AddItem(items[3]);
-        }
+        }*/
 
         // render fishing line when necessary
         if(renderLine) {
@@ -245,11 +246,11 @@ public class FishingController : MonoBehaviour
             } else {
                 det = 1;    // catch item!
             }
-
+            /*
             if(Input.GetKey(KeyCode.R))
                 det = 1;
             else if(Input.GetKey(KeyCode.T))
-                det = 0.15f;
+                det = 0.15f;*/
 
             // start animation, then rest handled by animation events
             if(det <= 0.35f) {                          // 35% chance jumpscare
