@@ -16,6 +16,7 @@ public class Global : MonoBehaviour
 
     [SerializeField] private Slider VolumeSlider;
     [SerializeField] private Slider MouseSensitivitySlider;
+    [SerializeField] private GameObject FocusPanel;
     private float MouseSensitivity = 130;
 
     void Awake() {
@@ -25,7 +26,9 @@ public class Global : MonoBehaviour
         } else {
             Destroy(gameObject);
         }
+    }
 
+    void Start() {
         AdjustMouseSensitivity(PlayerPrefs.GetFloat("MouseSensitivity", 130));
         AdjustAudio(PlayerPrefs.GetFloat("Volume", 0));
 
@@ -42,11 +45,21 @@ public class Global : MonoBehaviour
         if(Input.GetButtonDown("Cancel")) {
             SetFPSMouse(paused);
             paused = !paused;
-            if(SceneManager.GetActiveScene().buildIndex == 5)  {
+            if(SceneManager.GetActiveScene().buildIndex != 0 || SceneManager.GetActiveScene().buildIndex != 1 || SceneManager.GetActiveScene().buildIndex != 6 || SceneManager.GetActiveScene().buildIndex != 7)  {
                 Time.timeScale = paused ? 0 : 1;
                 PausedScreen.SetActive(paused);
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.U)) {
+            SaveGame();
+        }
+        
+        if(Input.GetKeyDown(KeyCode.Y)) {
+            ClearData();
+        }
+
+        FocusPanel.SetActive(!Application.isFocused && Application.platform == RuntimePlatform.WebGLPlayer);
     }
 
     public void Unpause() {
@@ -57,6 +70,7 @@ public class Global : MonoBehaviour
     }
 
     public void LoadScene(int sceneID) {
+        SetFPSMouse(false);
         SceneManager.LoadScene(sceneID);
     }
 
@@ -83,6 +97,51 @@ public class Global : MonoBehaviour
     public void AdjustMouseSensitivity(float _MouseSensitivity) {
         MouseSensitivity = _MouseSensitivity;
         PlayerPrefs.SetFloat("MouseSensitivity", _MouseSensitivity);
-        PlayerController.instance.SetMouseSensitivity(_MouseSensitivity);
+        if(PlayerController.instance)
+            PlayerController.instance.SetMouseSensitivity(_MouseSensitivity);
+    }
+
+    public void SaveGame() {
+        SaveData data = new SaveData(
+            BoatController.instance.transform.position,
+            BoatController.instance.transform.rotation,
+            InventoryManager.instance.GetHasCursedRod(),
+            InventoryManager.instance.GetHasCursedBait(),
+            InventoryManager.instance.GetItems().ToArray(),
+            InventoryManager.instance.GetPages().ToArray(),
+            PlayerController.instance.GetZones()
+        );
+
+        if(UINotification.instance)
+            UINotification.instance.ShowSaveIcon();
+
+        SaveManager.SaveGame(data);
+    }
+
+    public void LoadGame() {
+        SaveData data = SaveManager.LoadGame();
+
+        if(data == null)
+            return;
+
+        BoatController.instance.transform.position = data.boatPosition;
+        BoatController.instance.transform.rotation = data.boatRotation; 
+        PlayerController.instance.transform.position = new Vector3(data.boatPosition.x, data.boatPosition.y + 2, data.boatPosition.z);
+
+        InventoryManager.instance.SetHasCursedRod(data.hasCursedRod);
+        InventoryManager.instance.SetHasCursedBait(data.hasCursedBait);
+        InventoryManager.instance.SetItems(data.items);
+        InventoryManager.instance.SetPages(data.pages);
+
+        if(data.pages.Length > 0) {
+            Destroy(GameObject.FindGameObjectWithTag("Crate"));
+            // destroy crate at the start if we already have the page
+        }
+
+        PlayerController.instance.SetZones(data.zones);
+    }
+
+    public void ClearData() {
+        SaveManager.ClearData();
     }
 }

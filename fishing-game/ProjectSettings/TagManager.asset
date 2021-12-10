@@ -12,6 +12,7 @@ TagManager:
   - Zone
   - CatchCounter
   - EventTrigger
+  - Terrain
   layers:
   - Default
   - TransparentFX

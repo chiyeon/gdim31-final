@@ -22,7 +22,7 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.24
+    value: 0.229
   fastMode:
     overrideState: 0
     value: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 0
-    value: 0
+    value: 2
   tint:
     overrideState: 0
     value: 0
@@ -1431,7 +1431,7 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.457
+    value: 0.496
   smoothness:
     overrideState: 0
     value: 0.2

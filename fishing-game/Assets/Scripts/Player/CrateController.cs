@@ -26,6 +26,7 @@ public class CrateController : MonoBehaviour
     public void Open() {
         PlayerController.instance.PlaySoundRandPitch(CrateOpenSound);
         trigger.OnTrigger();
+        Global.instance.SaveGame();
         Destroy(gameObject);
     }
 

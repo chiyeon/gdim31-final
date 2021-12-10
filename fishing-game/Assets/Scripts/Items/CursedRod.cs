@@ -10,6 +10,6 @@ public class CursedRod : InteractableItem
         UINotification.instance.ShowNotification("You equip a Cursed Rod", 3);
         InventoryManager.instance.SetHasCursedRod(true);
         InventoryManager.instance.RemoveItem(this);
-        FishingController.instance.EquipCursedRod();
+            Global.instance.SaveGame();
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5543411670418030415}
   - component: {fileID: 5543411670418030412}
   - component: {fileID: 5543411670418030409}
+  - component: {fileID: -295930883679882805}
   m_Layer: 0
   m_Name: Bubbles
   m_TagString: Ripple
@@ -48,7 +49,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -4818,3 +4819,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3.5
   m_Center: {x: 0, y: 0, z: 0.000050067913}
+--- !u!114 &-295930883679882805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543411670418030413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3a001c0c0d11d4f9a6741dcc1fa7b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -30,7 +30,6 @@ public class FishingController : MonoBehaviour
     [SerializeField] private List<GameObject> crates;       // spawns after we catch
     [SerializeField] private List<Item> items;              // all possible items to give;
     [SerializeField] private bool isTutorial = false;
-    private int currentCrate = 0;
 
     [Header("Pulling Stuff")]                       // used to determine whether or not line will break when pulling
     [SerializeField] private float pullDecreaseAmount = 0.35f;
@@ -59,6 +58,7 @@ public class FishingController : MonoBehaviour
     private PlayerController controller;
     private Coroutine swingAnimationCoroutine;
     private int catchCounter = 0;       // after 6 unsuccessful catches, just give it to da player for free
+    private Vector3 bobberLandedPosition;
     
     
     void Awake() {
@@ -144,7 +144,8 @@ public class FishingController : MonoBehaviour
                         if(inventoryManager.GetHasCursedBait() && inventoryManager.GetHasCursedRod() && controller.GetZone() == 5) {
                             // end of the game
                             // play animatin oyou win
-                            Debug.Log("You win");
+                            Debug.Log("HI");
+                            Global.instance.PlayTextScene("You feel a friendly tug on your rod.", 3, 7);
                         }
 
                         // make bobber move towards player
@@ -271,9 +272,10 @@ public class FishingController : MonoBehaviour
                     InventoryManager.instance.AddItem(items[controller.GetZone()-1]);       //add item
                     catchCounter = 0;                       // reset catch counter
                     controller.DisableCurrentZoneObject();  // disable zone so we cant repeat
-                    if(currentCrate < crates.Count) {
-                        Instantiate(crates[currentCrate], BoatController.instance.GetCrateSpawnPosition().position, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));     // create next crate
-                        currentCrate++;
+                    int crateIndex = InventoryManager.instance.GetPages().Count - 1;
+                    if(crateIndex < crates.Count) {
+                        // BoatController.instance.GetCrateSpawnPosition().position used to get a good one, lets just put the crate where the fish was ?
+                        Instantiate(crates[crateIndex], bobberLandedPosition, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));     // create next crate
                     }
                     // player zone is still set at this point. we must reset it AFTER the model isntance is created
                 } else {
@@ -287,6 +289,7 @@ public class FishingController : MonoBehaviour
     public void BobberLanded() {
         finishFishingRadius.enabled = true;
         PlaySoundRandPitch(DropSound);
+        bobberLandedPosition = bobberInstance.transform.position;
     }
 
     public void PlaySound(AudioClip clip) {

@@ -14,6 +14,7 @@ public class Fisherman : MonoBehaviour
     [SerializeField] private float PatrolTurnSpeed = 1f;
     [SerializeField] private float ChaseTurnSpeed = 5f;
     [SerializeField] private LookAtTarget headLookAt;
+    [SerializeField] private Transform FishermanHead;
     [SerializeField] Transform BoatModel;
     [SerializeField] private float DetectionRadius = 10.0f;
     [SerializeField] private AudioSource HuntingAudioSource;
@@ -54,6 +55,8 @@ public class Fisherman : MonoBehaviour
             }
         }
 
+        if(Input.GetKeyDown(KeyCode.Backspace)) playerController.KillPlayer(FishermanHead);
+
         if(target) {
             float distance = Vector3.Distance(target.position, transform.position);
             if(distance > DetectionRadius) {
@@ -68,7 +71,10 @@ public class Fisherman : MonoBehaviour
                 transform.position = new Vector3(transform.position.x, 87, transform.position.z);
             } else {
                 if(chasingPlayer) {
-                    Debug.Log("player died");
+                    playerController.KillPlayer(FishermanHead);
+                    if(GetNewWaypointCoroutine != null)
+                        StopCoroutine(GetNewWaypointCoroutine);
+                    target = null;
                 } else {
                     Debug.Log("Reach current waypoint. Finding new one!");
                     GetNewWaypointCoroutine = StartCoroutine(GetNewWaypoint());
@@ -79,7 +85,7 @@ public class Fisherman : MonoBehaviour
 
     public void SetPlayer(bool justLocation = false) {
         // tracking player
-
+        transform.LookAt(playerController.transform);
         target = playerController.transform;
         chasingPlayer = true;
         playMusic = true;
@@ -95,7 +101,7 @@ public class Fisherman : MonoBehaviour
         
 
         if(GetNewWaypointCoroutine != null) {
-            transform.LookAt(playerController.transform);
+            
             StopCoroutine(GetNewWaypointCoroutine);
             animator.SetBool("Rotate", false);
         }
@@ -105,7 +111,7 @@ public class Fisherman : MonoBehaviour
         Debug.Log("clearing player");
         if(chasingPlayer) {
             Transform empty = new GameObject().transform;
-            empty.position = target.position;
+            empty.position = playerController.transform.position;
             target = empty;
 
             chasingPlayer = false;
