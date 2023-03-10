@@ -35,9 +35,7 @@ MonoBehaviour:
     Once the bobber dips below the water,
     hold left click to pull it back to you.
 
-    If you hold left click too long,
-    the rod will begin to shake and the line will snap, so stay in control!
 
-
-    Keep
-    an eye out for crates to grab and get items. Always look around.'
+    Keep an eye out for crates to grab
+    and get items. Always look around.'
+  isFinalPage: 0

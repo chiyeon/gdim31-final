@@ -13,6 +13,7 @@ public class InventoryManager : MonoBehaviour
     //private int numComponents = 0;
     private bool hasCursedRod = false;
     private bool hasCursedBait = false;
+    public int currentZone = 0;
 
     void Awake() {
         instance = this;
@@ -49,10 +50,13 @@ public class InventoryManager : MonoBehaviour
     }
 
     public void AddPage(Item page, bool notify = true) {
-        if(notify)
+        if(notify) {
             UINotification.instance.ShowNotification("You found " + page.GetName(), 3);
+            //UINotification.instance.ShowNotification("Map updated", 3);
+        }
         pages.Add(page);
         UIInventory.instance.AddPage(page);
+        //currentZone++;
     }
 
     public void RemoveItem(Item item) {
@@ -77,8 +81,11 @@ public class InventoryManager : MonoBehaviour
     public void SetHasCursedRod(bool _hasCursedRod) {
         hasCursedRod = _hasCursedRod;
 
-        if(hasCursedRod)
+        if(hasCursedRod) {
             FishingController.instance.EquipCursedRod();
+            currentZone++;
+        }
+   
     }
 
     /*

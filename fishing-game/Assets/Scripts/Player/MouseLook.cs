@@ -11,6 +11,7 @@ public class MouseLook : MonoBehaviour
     void Start()
     {
         Global.instance.SetFPSMouse(true);      // disable mouse cursor
+        mouseSensitivity = Global.instance.GetMouseSensitivity();
     }
 
     // Update is called once per frame

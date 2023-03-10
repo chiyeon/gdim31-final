@@ -12,6 +12,7 @@ public class CrateController : MonoBehaviour
     [SerializeField] private AudioClip CrateHitSound;
     [SerializeField] private AudioClip CrateOpenSound;
     private AudioSource CrateAudioSource;
+    [SerializeField] private bool isTutorial = false;
     // serialized reference to crate model
 
     void Start() {
@@ -26,7 +27,13 @@ public class CrateController : MonoBehaviour
     public void Open() {
         PlayerController.instance.PlaySoundRandPitch(CrateOpenSound);
         trigger.OnTrigger();
-        Global.instance.SaveGame();
+        if (isTutorial) {
+         // show save icon but dont actually save in tutorial cuz it ruins stuff
+         if(UINotification.instance)
+            UINotification.instance.ShowSaveIcon();
+        } else {
+         Global.instance.SaveGame();
+        }
         Destroy(gameObject);
     }
 

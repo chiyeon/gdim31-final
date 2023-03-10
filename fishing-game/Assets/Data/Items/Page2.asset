@@ -32,3 +32,5 @@ MonoBehaviour:
     The entity keeps haunting me.
     It chases when I get close, and I fear for what will happen each time it almost
     catches me. Hopefully there will be another chest awaiting you ahead.'
+  isFinalPage: 0
+  pageNum: 2

@@ -8,11 +8,13 @@ public class PlayAnimationOnTurn : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject fisherman;
     [SerializeField] private AudioClip JumpscareSound;
+    [SerializeField] private AudioClip ScreamSound;
     bool animate = false;
 
     void Update() {
         if(!animate) {
             if(fisherman.activeSelf) {
+               /*
                 RaycastHit hit;
                 Ray ray = cam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
                 if(Physics.Raycast(ray, out hit)) {
@@ -22,6 +24,14 @@ public class PlayAnimationOnTurn : MonoBehaviour
                         animator.enabled = true;
                         cam.GetComponent<MouseLook>().enabled = false;
                     }
+                }*/
+                float adj = Mathf.Abs(cam.localEulerAngles.y);
+                Debug.Log(adj);
+                if ((adj >= 90 && adj <= 270)) {
+                  Debug.Log("gotem");
+                  animate = true;
+                  animator.enabled = true;
+                  cam.GetComponent<MouseLook>().enabled = false;
                 }
             }
         } else {

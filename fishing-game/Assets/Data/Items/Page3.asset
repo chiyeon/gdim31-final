@@ -31,3 +31,5 @@ MonoBehaviour:
     Please
     take note: The last component was hidden amid the shallow water in the smaller,
     clustered islands. This is the last thing I need to escape.'
+  isFinalPage: 0
+  pageNum: 3

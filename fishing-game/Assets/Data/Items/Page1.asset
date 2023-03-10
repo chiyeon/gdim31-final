@@ -24,16 +24,17 @@ MonoBehaviour:
   note: 'Day 1
 
 
-    Something is hunting on this strange night. I fear what will
-    happen if it catches me.
+    I am being hunted.
 
 
-    I''ll continue to lay these chests down in the
-    hopes that someone will find them and piece the parts together.
+    I''ll continue to lay these chests
+    down in the hopes that someone will find them and piece the parts together. It
+    may take a few tries to fish it up, but it will come.
 
 
-    Please
-    take note: My fishing rod snagged onto something essential for escaping this
-    place. I found it near the spikey rocks away from the main island. Luckily I
-    had my map to navigate. If I live past this note, there will be another chest
-    there.'
+    Please take note:
+    I found something, and it''s important to getting out of here alive. If I live
+    past this note, there will be another chest with the item. And another thing...Although
+    this ghostly apparition can move wherever it pleases, it will not see you if
+    you hide behind something!'
+  isFinalPage: 0

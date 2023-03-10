@@ -59,6 +59,7 @@ public class FishingController : MonoBehaviour
     private Coroutine swingAnimationCoroutine;
     private int catchCounter = 0;       // after 6 unsuccessful catches, just give it to da player for free
     private Vector3 bobberLandedPosition;
+    private bool lastWasJumpscare = false;
     
     
     void Awake() {
@@ -72,6 +73,7 @@ public class FishingController : MonoBehaviour
 
         finishFishingRadius.enabled = false;
         lineRenderer.enabled = false;
+
     }
 
     void Update() {
@@ -146,7 +148,7 @@ public class FishingController : MonoBehaviour
                             // end of the game
                             // play animatin oyou win
                             Debug.Log("HI");
-                            Global.instance.PlayTextScene("You feel a friendly tug on your rod.", 3, 7);
+                            Global.instance.PlayTextScene("You're getting pulled somewhere.", 6, 7);
                         }
 
                         // make bobber move towards player
@@ -229,56 +231,68 @@ public class FishingController : MonoBehaviour
                 return;
             }
 
+            
+
             // determine what kind of catch it is
             float det = Random.Range(0f, 1f);
             if(controller.GetZone() == 4 || controller.GetZone() == 5)      // garenteed correct catch for final stages
                 det = 1;
 
             // debug p7urposes, turn catch coutner < 6!
-            if(catchCounter < 6) {
+            if(catchCounter <= 5) {
                 catchCounter++;
                 // make sure we will never catch on first try
                 if(catchCounter == 1) {
-                    while(det > 0.85) {
+                    while(det > 0.8) {
                         det = Random.Range(0f, 1f); 
                     }
                 }
             } else {
                 det = 1;    // catch item!
             }
-            /*
-            if(Input.GetKey(KeyCode.R))
+
+            if (det <= 0.2f && lastWasJumpscare) {
+               while (det <= 0.2f) {
+                  det = Random.Range(0f, 1f); 
+               }
+            }
+
+            if(controller.GetZone() == 4) {     // cursed bait zone
+               if(!InventoryManager.instance.GetHasCursedRod()) {   // if we dont have the rod yet, nope us out
+                  UINotification.instance.ShowNotification("You need a different rod to fish here.", 3);
+                     animator.SetTrigger("Fish");
+                     return;
+               }
+            }
+            
+            /*if(Input.GetKey(KeyCode.R))
                 det = 1;
             else if(Input.GetKey(KeyCode.T))
                 det = 0.15f;*/
 
             // start animation, then rest handled by animation events
-            if(det <= 0.35f) {                          // 35% chance jumpscare
+            if(det <= -0.2f) {                          // 20% chance jumpscare
                 animator.SetTrigger("Jumpscare");
-            } else if(det <= 0.85) {                    // 50% chance fish
+                lastWasJumpscare = true;
+            } else if(det <= -0.8) {                    //  60% chance fish
                 animator.SetTrigger("Fish");
-            } else {                                    // 15% chance item
+                lastWasJumpscare = false;
+            } else {                                    // 20% chance item
+               lastWasJumpscare = false;
                 // make sure we are in a valid zone to recieve item first.
                 // if not, just play jumpscare hehe
                 if(controller.GetZone() != 0) {
                     if(controller.GetZone() == 4) {     // cursed bait zone
                         if(!InventoryManager.instance.GetHasCursedRod()) {   // if we dont have the rod yet, nope us out
-                            animator.SetTrigger(Random.Range(0f, 1f) > 0.3f ? "Fish" : "Jumpscare");
+                           UINotification.instance.ShowNotification("Your bag feels heavy...", 3);
+                            animator.SetTrigger("Fish");
                             return;
                         }
                     }
 
                     // any other normal zone
                     animator.SetTrigger("Item");            // play anim
-                    InventoryManager.instance.AddItem(items[controller.GetZone()-1]);       //add item
-                    catchCounter = 0;                       // reset catch counter
-                    controller.DisableCurrentZoneObject();  // disable zone so we cant repeat
-                    int crateIndex = InventoryManager.instance.GetPages().Count - 1;
-                    if(crateIndex < crates.Count) {
-                        // BoatController.instance.GetCrateSpawnPosition().position used to get a good one, lets just put the crate where the fish was ?
-                        Instantiate(crates[crateIndex], bobberLandedPosition, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));     // create next crate
-                    }
-                    // player zone is still set at this point. we must reset it AFTER the model isntance is created
+                    
                 } else {
                     animator.SetTrigger("Fish");
                 }
@@ -307,6 +321,7 @@ public class FishingController : MonoBehaviour
 
     // start of animation, disable controls
     public void StartCatching() {
+      Debug.Log("started catching");
         controller.SetDisableControls(true);
         renderLine = true;      // reenable, turned off in Release()
         transferringLine = true;
@@ -314,12 +329,29 @@ public class FishingController : MonoBehaviour
 
     // run start of idle animation, catch anim over
     public void EndCatching() {
+      Debug.Log("catching over");
         controller.SetDisableControls(false);
         justCaught = false;
     }
 
+    public void GetItem() {
+      Debug.Log("getting item for player");
+      Debug.Log(controller.GetZone()-1);
+      InventoryManager.instance.AddItem(items[controller.GetZone()-1]);       //add item
+      catchCounter = 0;                       // reset catch counter
+      controller.DisableCurrentZoneObject();  // disable zone so we cant repeat
+      controller.SetZone(0, null);
+      int crateIndex = InventoryManager.instance.GetPages().Count - 1;
+      if(crateIndex < crates.Count) {
+         // BoatController.instance.GetCrateSpawnPosition().position used to get a good one, lets just put the crate where the fish was ?
+         Instantiate(crates[crateIndex], bobberLandedPosition, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));     // create next crate
+      }
+      // player zone is still set at this point. we must reset it AFTER the model isntance is created
+    }
+
     // spawn temp fish model for catch animation
     public void CreateFishInstance() {
+      Debug.Log("creating fish");
         int newFish = -1;
         do {
             newFish = Random.Range(0, fishModels.Count);
@@ -330,11 +362,13 @@ public class FishingController : MonoBehaviour
 
     // fix vars
     public void StopLineTransfer() {
+      Debug.Log("line transfer stopped");
         transferringLine = false;
     }
 
     // remove instance
     public void DestroyFishInstance() {
+      Debug.Log("fish instance destroyed");
         if(fishModelInstance)
             Destroy(fishModelInstance);
     }
@@ -347,8 +381,9 @@ public class FishingController : MonoBehaviour
     }
 
     public void CreateItemInstance() {
+      Debug.Log("item instance created");
         fishModelInstance = Instantiate(itemModels[controller.GetZone() - 1], CaughtObject);
-        controller.SetZone(0, null);
+        
     }
 
     public void JumpScare() {
@@ -359,6 +394,7 @@ public class FishingController : MonoBehaviour
     }
 
     public void CutLine() {
+      Debug.Log("line cut");
         renderLine = false;
     }
 
